@@ -1,17 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'; 
-import { ThemeProvider } from 'styled-components';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux"; 
+import store from "../src/store/index.js";
+import App from "./App";
+import { ContextProvider } from "./contexts/context.js"
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider>
+      <ContextProvider>
         <App />
-      </ThemeProvider>
+      </ContextProvider>
     </Provider>
   </React.StrictMode>
 );
