@@ -9,9 +9,9 @@ const StyledForm = styled.div`
   padding: 35px;
 `;
 
-const StyledP = styled.p`
+const StyledHeader = styled.p`
  margin: 0px 0px 30px 30px
 `
 
 
-export { StyledForm, StyledP };
+export { StyledForm, StyledHeader };

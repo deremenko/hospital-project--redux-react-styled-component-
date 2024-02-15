@@ -10,13 +10,13 @@ const StyledHeader = styled.header`
 
 const StyledImg = styled.img`
   height: 45px;
-  width :45px;
+  width: 45px;
   margin: 0px 0px 0px 50px;
 `;
 
-const StyledText = styled.p`
+const StyledTitle = styled.p`
   padding: 0px 0px 0px 75px;
   flex: 1;
 `
 
-export { StyledHeader, StyledImg, StyledText }
+export { StyledHeader, StyledImg, StyledTitle }

@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-const StyledInteractionZone = styled.div`
+const StyledMainLaylout = styled.div`
+  background-color: rgba(197, 233, 255, 0.72);
+  min-height: 100vh;
+`;
+
+const StyledMainZone = styled.div`
   display: grid;
   grid-template-areas: "logo actions";
   width: 100%;
@@ -27,6 +32,6 @@ const StyledLink = styled.a`
   color: black; 
   text-decoration: none;
   align-self: flex-end;
-`
+`;
 
-export { StyledInteractionZone, StyledImg, StyledContentContainer, StyledLink };
+export { StyledMainZone, StyledImg, StyledContentContainer, StyledLink, StyledMainLaylout };

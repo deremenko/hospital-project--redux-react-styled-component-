@@ -12,6 +12,9 @@ const StyledInputLine = styled.input`
   width: 100%;
   padding: 0px 0px 0px 10px;
   box-sizing: border-box;
-`
+`;
+const StyledError = styled.span`
+  color: #f22c3d;
+`;
 
-export { StyledInput, StyledInputLine };
+export { StyledInput, StyledInputLine, StyledError };

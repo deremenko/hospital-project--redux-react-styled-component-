@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { thunk } from 'redux-thunk';
-import reducerRegistration from "./reducers/reducerRegistration.js";
+import userReducer  from "./reducers/user-reducer.js";
 
 const rootReducer = combineReducers({
-  reducerRegistration,
+  userReducer ,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

@@ -1,14 +1,16 @@
 import { useContext } from "react";
-import { StyledHeader, StyledImg, StyledText } from "./styles";
-import { Context } from "../../contexts/context";
-import logoIcon from "../../img/logo.png";
+import { HeaderContext } from "../../contexts/context";
+import icon from "../../img/header-logo.svg";
+import { StyledHeader, StyledImg, StyledTitle } from "./styles";
 
 const Header = () => {
-  const { data } = useContext(Context);
+  const { header } = useContext(HeaderContext);
+
+
   return (
     <StyledHeader>
-      <StyledImg src={logoIcon} />
-      <StyledText>{data.title}</StyledText>
+      <StyledImg src={icon} />
+      <StyledTitle>{header}</StyledTitle>
     </StyledHeader>
   );
 }

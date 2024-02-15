@@ -1,9 +1,9 @@
-import { StyledForm, StyledP } from './styles';
+import { StyledForm, StyledHeader } from './styles';
 
 const Form = ({ children, title }) => {
   return (
     <StyledForm>
-      <StyledP>{title}</StyledP>
+      <StyledHeader>{title}</StyledHeader>
       {children}
     </StyledForm>
   );

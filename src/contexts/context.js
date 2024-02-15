@@ -1,16 +1,3 @@
-import React from "react";
-import { useState } from "react";
-const Context = React.createContext();
+import { createContext } from "react";
 
-const ContextProvider = ({ children }) => {
-  const [data, setData] = useState({
-    title: "Зарегистрироваться в системе"
-  });
-
-  return (
-    <Context.Provider value={{ data, setData }}>
-      {children}
-    </Context.Provider>
-  );
-};
-export {ContextProvider, Context};
+export const HeaderContext = createContext(null);

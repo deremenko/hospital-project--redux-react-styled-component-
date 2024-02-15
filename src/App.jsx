@@ -1,9 +1,11 @@
-import RegistrationPage from './components/RegistrationPage/MainLaylout';
+import { Routes, Route } from 'react-router-dom';
+import RegistrationPage from './components/Page/Registration';
 
-function App() {
+const App = () => {
   return (
-    <RegistrationPage>
-    </RegistrationPage>
+    <Routes>
+      <Route path="/registration" element={<RegistrationPage />}/> 
+    </Routes>
   );
 }
 
