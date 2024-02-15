@@ -76,7 +76,7 @@ const Registration = () => {
           <Form title="Регистрация">
             <CustomInput 
               label="Логин" 
-              error={newUser.password.error}
+              error={newUser.login.error}
               idLabel="registerations"
               placeholder="Логин" 
               value={newUser.login.value}
