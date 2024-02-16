@@ -5,15 +5,18 @@ import {
   submitRegistrationError,
 } from '../actions/user.js';
 
-export const registration = (objectData) => async (dispatch) => {
+const registration = (newUser) => async (dispatch) => {
   try {
     dispatch(submitRegistration());
     
-    const response = await registerUser(objectData);
-    localStorage.setItem("token", response.data.accessToken)
-
-    dispatch(submitRegistrationSuccess(response));
+    const response = await registerUser(newUser);
+    localStorage.setItem("token", response.accessToken)
+    dispatch(submitRegistrationSuccess(response.user));
   } catch (error) {
     dispatch(submitRegistrationError(error.message));
   }
 };
+
+const actionCreators = { registration };
+
+export default actionCreators;

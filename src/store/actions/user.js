@@ -8,11 +8,9 @@ export const submitRegistration  = () => ({
   type: SUBMIT_REGISTRATION,
 });
 
-export const submitRegistrationSuccess = (user) => ({
+export const submitRegistrationSuccess = (payload) => ({
   type: SUBMIT_REGISTRATION_SUCCESS,
-  payload: {
-    user,
-  },
+  payload,
 });
 
 export const submitRegistrationError = (error) => ({

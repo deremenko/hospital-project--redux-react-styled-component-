@@ -26,12 +26,9 @@ const StyledContentContainer = styled.div`
   grid-area: actions;
 `;
 
-const StyledLink = styled.a`
-  margin: 15px 0px 0px;
-  font-size: 0.5em;
-  color: black; 
-  text-decoration: none;
-  align-self: flex-end;
-`;
-
-export { StyledMainZone, StyledImg, StyledContentContainer, StyledLink, StyledMainLaylout };
+export { 
+  StyledMainZone, 
+  StyledImg, 
+  StyledContentContainer, 
+  StyledMainLaylout 
+};

@@ -1,8 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../constants"
 
-export const registerUser = async (objectData) => {
-  const { login, password } = objectData;
-  const response = await axios.post(`${API_URL}/user/registration`, {login, password});
+export const registerUser = async (user) => {
+  const response = await axios.post(`${API_URL}/user/registration`, user);
   return response.data;
 };

@@ -6,7 +6,6 @@ import { StyledHeader, StyledImg, StyledTitle } from "./styles";
 const Header = () => {
   const { header } = useContext(HeaderContext);
 
-
   return (
     <StyledHeader>
       <StyledImg src={icon} />

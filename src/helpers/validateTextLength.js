@@ -1,5 +1,5 @@
-const validateTextLength = (data) => {
-  return data.trim().length >= 6;
+const validateTextLength = (length, data) => {
+  return data.trim().length >= length;
 };
 
 export { validateTextLength };

@@ -1,13 +1,19 @@
-import { useState } from 'react';
-import useActions from "../../../hook/useActions"
 import Header from "../../Header";
 import Form from "../../Form";
-import Button from "../../Button";
 import CustomInput from "../../UI/CustomInput";
-import logoIcon from "../../../img/logo.png";
-import { validatePassword } from "../../../helpers/validatePassword.js";
+import ErrorSnackbar from "../../ErrorSnackbar"
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import useActions from "../../../hook/useActions"
+import { validateLatinWithMinDigits } from "../../../helpers/validateLatinWithMinDigits.js";
 import { validateTextLength } from "../../../helpers/validateTextLength.js";
-import { StyledMainZone, StyledImg, StyledContentContainer, StyledLink, StyledMainLaylout } from "./styles";
+import logoIcon from "../../../img/logo.png";
+import { 
+  StyledMainZone, 
+  StyledImg, 
+  StyledContentContainer, 
+  StyledMainLaylout 
+} from "./styles";
 
 const Registration = () => { 
   const [newUser, setNewUser] = useState({ 
@@ -15,8 +21,19 @@ const Registration = () => {
     password: { value: '', error: '' },
     repeatPassword: { value: '', error: '' },
   });
+  const [errorOpen, setErrorOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const errorFromBackend = useSelector((state) => state.error);
+  console.log(errorFromBackend)
 
-  const registration  = useActions();
+  useEffect(() => {
+    if (errorFromBackend) {
+      setErrorOpen(false);
+      setErrorMessage(errorFromBackend)
+    }
+  }, [errorFromBackend]);
+
+  const { registration }  = useActions();
 
   const handleInputChange = (newValue, key) => {
     setNewUser({
@@ -26,24 +43,22 @@ const Registration = () => {
   };
 
   const createNewUser = () => {
-    if (!validateTextLength(newUser.login.value)) {
+    if (!validateTextLength(6, newUser.login.value)) {
       setNewUser({
         ...newUser,
         login: {
           error: "Требуется не менее 6 символов",
-          value: newUser.login.value,
         },
       });
 
       return;
     }
     
-    if (!validatePassword(newUser.password.value)) {
+    if (!validateLatinWithMinDigits(newUser.password.value)) {
       setNewUser({
       ...newUser,
         password: {
           error: "Пароль должен состоять из латинских символов и содержать хотя бы одну цифру",
-          value: newUser.password.value,
         },
       });
 
@@ -55,7 +70,6 @@ const Registration = () => {
         ...newUser,
         repeatPassword: {
           error: "Пароли не совпадают",
-          value: newUser.repeatPassword.value,
         },
       });
       return;
@@ -67,13 +81,24 @@ const Registration = () => {
     });
   };
 
+  const handleSnackbarClose = () => {
+    setErrorOpen(false);
+  };
+
   return (
     <StyledMainLaylout>
+    <ErrorSnackbar open={errorOpen} handleClose={handleSnackbarClose} errorMessage={errorMessage} />
       <Header />
       <StyledMainZone>
         <StyledImg src={logoIcon} alt="logo" />
         <StyledContentContainer>
-          <Form title="Регистрация">
+          <Form 
+            title="Регистрация" 
+            textLink="Авторизироваться" 
+            actionButton={createNewUser} 
+            textButton="Зарегистрироваться"
+            type="button" 
+          >
             <CustomInput 
               label="Логин" 
               error={newUser.login.error}
@@ -97,15 +122,13 @@ const Registration = () => {
             <CustomInput 
               label="Повторите пароль"
               error={newUser.repeatPassword.error}
-              idLabel="twoPassword" 
+              idLabel="repeatPassword" 
               placeholder="Пароль" 
               value={newUser.repeatPassword.value}
               handleInputChange={handleInputChange}
               name="repeatPassword" 
               type="password"
             />
-            <Button textButton="Зарегистрироваться" actionButton={createNewUser} />
-            <StyledLink href="">Авторизироваться</StyledLink>
           </Form>
         </StyledContentContainer>
       </StyledMainZone>

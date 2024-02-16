@@ -4,7 +4,7 @@ import RegistrationPage from './components/Page/Registration';
 const App = () => {
   return (
     <Routes>
-      <Route path="/registration" element={<RegistrationPage />}/> 
+      <Route path="/registration" element={<RegistrationPage />} /> 
     </Routes>
   );
 }

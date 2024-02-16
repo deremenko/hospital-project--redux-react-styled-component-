@@ -12,6 +12,11 @@ const StyledButton = styled.button`
   font-size: 0.45em;
   text-align: center;
   align-self: flex-end;
+  cursor: pointer;
 `;
 
-export { StyledButton };
+const StyledTextButton = styled.p`
+  margin: 0px;
+`;
+
+export { StyledButton, StyledTextButton };

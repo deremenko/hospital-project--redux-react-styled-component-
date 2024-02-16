@@ -4,7 +4,7 @@ const StyledInput = styled.div`
   height: 50px;
   width: 100%;
   font-size: 0.5em;
-  margin: 25px 0px 0px;
+  margin: 0px 0px 20px;
 `;
 
 const StyledInputLine = styled.input`
@@ -13,8 +13,10 @@ const StyledInputLine = styled.input`
   padding: 0px 0px 0px 10px;
   box-sizing: border-box;
 `;
+
 const StyledError = styled.span`
   color: #f22c3d;
+  font-size: 0.4em;
 `;
 
 export { StyledInput, StyledInputLine, StyledError };
