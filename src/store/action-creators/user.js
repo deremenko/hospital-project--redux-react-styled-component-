@@ -1,8 +1,11 @@
-import { registerUser } from '../../services/user.js';
+import { registerUser, authorizationUser } from '../../services/user.js';
 import {
   submitRegistration,
   submitRegistrationSuccess,
   submitRegistrationError,
+  submitAuthorization,
+  submitAuthorizationSuccess,
+  submitAuthorizationError
 } from '../actions/user.js';
 
 const registration = (newUser) => async (dispatch) => {
@@ -17,6 +20,18 @@ const registration = (newUser) => async (dispatch) => {
   }
 };
 
-const actionCreators = { registration };
+const authorization = (newUser) => async (dispatch) => {
+  try {
+    dispatch(submitAuthorization());
+    
+    const response = await authorizationUser(newUser);
+    localStorage.setItem("token", response.accessToken)
+    dispatch(submitAuthorizationSuccess(response.user));
+  } catch (error) {
+    dispatch(submitAuthorizationError(error.message));
+  }
+};
+
+const actionCreators = { registration, authorization };
 
 export default actionCreators;
