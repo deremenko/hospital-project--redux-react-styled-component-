@@ -1,9 +1,9 @@
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Header from "../../Header";
 import Form from "../../Form";
 import CustomInput from "../../UI/CustomInput";
 import ErrorSnackbar from "../../ErrorSnackbar"
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import useActions from "../../../hook/useActions"
 import { validateLatinWithMinDigits } from "../../../helpers/validateLatinWithMinDigits.js";
 import { validateTextLength } from "../../../helpers/validateTextLength.js";
@@ -24,7 +24,7 @@ const Registration = () => {
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const errorFromBackend = useSelector((state) => state.error);
-  console.log(errorFromBackend)
+  const { registration }  = useActions();
 
   useEffect(() => {
     if (errorFromBackend) {
@@ -32,8 +32,6 @@ const Registration = () => {
       setErrorMessage(errorFromBackend)
     }
   }, [errorFromBackend]);
-
-  const { registration }  = useActions();
 
   const handleInputChange = (newValue, key) => {
     setNewUser({
@@ -87,7 +85,11 @@ const Registration = () => {
 
   return (
     <StyledMainLaylout>
-    <ErrorSnackbar open={errorOpen} handleClose={handleSnackbarClose} errorMessage={errorMessage} />
+    <ErrorSnackbar 
+      open={errorOpen} 
+      handleClose={handleSnackbarClose} 
+      errorMessage={errorMessage} 
+    />
       <Header />
       <StyledMainZone>
         <StyledImg src={logoIcon} alt="logo" />
