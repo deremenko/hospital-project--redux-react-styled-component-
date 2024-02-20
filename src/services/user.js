@@ -8,5 +8,5 @@ export const registerUser = async (user) => {
 
 export const authorizationUser = async (user) => {
   const response = await axios.post(`${API_URL}/user/login`, user);
-  return response.cookie;
+  return response.data;
 };

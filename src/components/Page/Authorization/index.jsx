@@ -1,10 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Header from "../../Header";
 import Form from "../../Form";
 import CustomInput from "../../UI/CustomInput";
 import ErrorSnackbar from "../../ErrorSnackbar"
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import useActions from "../../../hook/useActions"
 import logoIcon from "../../../img/logo.png";
 import { 
@@ -20,16 +20,19 @@ const Authorization = () => {
     password: { value: '', error: '' },
   });
 
-  const [errorOpen, setErrorOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [error, setError] = useState({
+    errorOpen: false,
+    errorMessage: '',
+  });
   const errorFromBackend = useSelector((state) => state.error);
   const { authorization }  = useActions();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (errorFromBackend) {
-      setErrorOpen(true);
-      setErrorMessage(errorFromBackend)
+      setError({
+        errorOpen: true,
+        errorMessage: errorFromBackend,
+      });
     }
   }, [errorFromBackend]);
 
@@ -41,7 +44,7 @@ const Authorization = () => {
   };
 
   const loginUser = () => {
-    if (newUser.login.value.trim() === "") {
+    if (!newUser.login.value.trim()) {
       setNewUser({
         ...newUser,
         login: {
@@ -52,7 +55,7 @@ const Authorization = () => {
       return;
     }
     
-    if (newUser.password.value.trim() === "") {
+    if (!newUser.password.value.trim()) {
       setNewUser({
       ...newUser,
         password: {
@@ -67,20 +70,21 @@ const Authorization = () => {
       login: newUser.login.value.trim(),
       password: newUser.password.value.trim(),
     });
-
-    navigate("/");
   };
 
   const handleSnackbarClose = () => {
-    setErrorOpen(false);
+    setError({
+      ...error,
+      errorOpen: false,
+    });
   };
 
   return (
     <StyledMainLaylout>
     <ErrorSnackbar 
-      open={errorOpen} 
+      open={error.errorOpen} 
       handleClose={handleSnackbarClose} 
-      errorMessage={errorMessage} 
+      errorMessage={error.errorMessage} 
     />
       <Header />
       <StyledMainZone>
