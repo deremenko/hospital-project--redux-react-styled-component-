@@ -5,8 +5,6 @@ import Form from "../../Form";
 import CustomInput from "../../UI/CustomInput";
 import ErrorSnackbar from "../../ErrorSnackbar"
 import useActions from "../../../hook/useActions"
-import { validateLatinWithMinDigits } from "../../../helpers/validateLatinWithMinDigits.js";
-import { validateTextLength } from "../../../helpers/validateTextLength.js";
 import logoIcon from "../../../img/logo.png";
 import { 
   StyledMainZone, 
@@ -15,21 +13,25 @@ import {
   StyledMainLaylout 
 } from "./styles";
 
-const Registration = () => { 
+const Authorization = () => { 
   const [newUser, setNewUser] = useState({ 
     login: { value: '', error: '' },
     password: { value: '', error: '' },
-    repeatPassword: { value: '', error: '' },
   });
-  const [errorOpen, setErrorOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+
+  const [error, setError] = useState({
+    errorOpen: false,
+    errorMessage: '',
+  });
   const errorFromBackend = useSelector((state) => state.error);
-  const { registration }  = useActions();
+  const { authorization }  = useActions();
 
   useEffect(() => {
     if (errorFromBackend) {
-      setErrorOpen(true);
-      setErrorMessage(errorFromBackend)
+      setError({
+        errorOpen: true,
+        errorMessage: errorFromBackend,
+      });
     }
   }, [errorFromBackend]);
 
@@ -40,66 +42,59 @@ const Registration = () => {
     });
   };
 
-  const createNewUser = () => {
-    if (!validateTextLength(6, newUser.login.value)) {
+  const loginUser = () => {
+    if (!newUser.login.value.trim()) {
       setNewUser({
         ...newUser,
         login: {
-          error: "Требуется не менее 6 символов",
+          error: "Строка не должна быть пустой",
         },
       });
 
       return;
     }
     
-    if (!validateLatinWithMinDigits(newUser.password.value)) {
+    if (!newUser.password.value.trim()) {
       setNewUser({
       ...newUser,
         password: {
-          error: "Пароль должен состоять из латинских символов и содержать хотя бы одну цифру",
+          error: "Строка не должна быть пустой",
         },
       });
 
       return;
     }
 
-    if (newUser.password.value !== newUser.repeatPassword.value) {
-      setNewUser({
-        ...newUser,
-        repeatPassword: {
-          error: "Пароли не совпадают",
-        },
-      });
-      return;
-    }
-
-    registration({
+    authorization({
       login: newUser.login.value.trim(),
       password: newUser.password.value.trim(),
     });
   };
 
   const handleSnackbarClose = () => {
-    setErrorOpen(false);
+    setError({
+      ...error,
+      errorOpen: false,
+    });
   };
 
   return (
     <StyledMainLaylout>
-    <ErrorSnackbar 
-      open={errorOpen} 
-      handleClose={handleSnackbarClose} 
-      errorMessage={errorMessage} 
-    />
+      <ErrorSnackbar 
+        open={error.errorOpen} 
+        handleClose={handleSnackbarClose} 
+        errorMessage={error.errorMessage} 
+      />
       <Header />
       <StyledMainZone>
         <StyledImg src={logoIcon} alt="logo" />
         <StyledContentContainer>
           <Form 
-            title="Регистрация" 
-            textLink="Авторизироваться"
-            link="/authorization" 
-            actionButton={createNewUser} 
-            textButton="Зарегистрироваться"
+            title="Войти в систему" 
+            textLink="Зарегистрироваться"
+            link = "/registration" 
+            actionButton={loginUser} 
+            textButton="Войти"
             type="button" 
           >
             <CustomInput 
@@ -122,16 +117,6 @@ const Registration = () => {
               name="password"
               type="password"
             />
-            <CustomInput 
-              label="Повторите пароль"
-              error={newUser.repeatPassword.error}
-              idLabel="repeatPassword" 
-              placeholder="Пароль" 
-              value={newUser.repeatPassword.value}
-              handleInputChange={handleInputChange}
-              name="repeatPassword" 
-              type="password"
-            />
           </Form>
         </StyledContentContainer>
       </StyledMainZone>
@@ -139,4 +124,4 @@ const Registration = () => {
   );
 }
 
-export default Registration;
+export default Authorization;

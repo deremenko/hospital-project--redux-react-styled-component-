@@ -5,7 +5,7 @@ import {
   StyledLink 
 } from './styles';
 
-const Form = ({ children, title, textLink, actionButton, textButton, type }) => {
+const Form = ({ children, title, textLink, link, actionButton, textButton, type }) => {
   return (
     <StyledForm>
       <StyledHeader>{title}</StyledHeader>
@@ -15,7 +15,7 @@ const Form = ({ children, title, textLink, actionButton, textButton, type }) => 
         actionButton={actionButton} 
         type={type}
       />
-      <StyledLink to="/login">{textLink}</StyledLink>
+      <StyledLink to={link}>{textLink}</StyledLink>
     </StyledForm>
   );
 }

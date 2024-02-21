@@ -1,7 +1,10 @@
 import { 
   SUBMIT_REGISTRATION, 
   SUBMIT_REGISTRATION_SUCCESS, 
-  SUBMIT_REGISTRATION_ERROR 
+  SUBMIT_REGISTRATION_ERROR,
+  SUBMIT_AUTHORIZATION,
+  SUBMIT_AUTHORIZATION_SUCCESS,
+  SUBMIT_AUTHORIZATION_ERROR 
 } from "../enums/user.js"
 
 const initialState = {
@@ -27,6 +30,25 @@ const userReducer = (state = initialState, action) => {
       };
 
     case SUBMIT_REGISTRATION_ERROR:
+      return {
+        ...state,
+        error: action.error,
+      };
+
+    case SUBMIT_AUTHORIZATION:
+      return {
+        ...state,
+        error: null,
+      };
+
+    case SUBMIT_AUTHORIZATION_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        isAuth: true,
+      };
+
+    case SUBMIT_AUTHORIZATION_ERROR:
       return {
         ...state,
         error: action.error,

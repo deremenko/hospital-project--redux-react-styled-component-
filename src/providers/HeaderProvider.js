@@ -12,6 +12,11 @@ const HeaderProvider = ({ children }) => {
       case "/registration":
         setHeader("Зарегистрироваться в системе");
         break;
+
+      case "/authorization":
+        setHeader("Войти в систему");
+        break;
+
       default:
         setHeader("");
     }
