@@ -80,11 +80,11 @@ const Authorization = () => {
 
   return (
     <StyledMainLaylout>
-    <ErrorSnackbar 
-      open={error.errorOpen} 
-      handleClose={handleSnackbarClose} 
-      errorMessage={error.errorMessage} 
-    />
+      <ErrorSnackbar 
+        open={error.errorOpen} 
+        handleClose={handleSnackbarClose} 
+        errorMessage={error.errorMessage} 
+      />
       <Header />
       <StyledMainZone>
         <StyledImg src={logoIcon} alt="logo" />
