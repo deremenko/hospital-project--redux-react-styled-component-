@@ -85,7 +85,7 @@ const Main = () => {
       return;
     }
     
-    if (!newReception.date.value < currentDate) {
+    if (newReception.date.value < currentDate) {
       setNewReception({
         ...newReception,
         date: {
@@ -177,7 +177,7 @@ const Main = () => {
       </ReceptionForm>
       <StyledMainZone>
         <Receptions
-          headerOptions = {tableHeaderOptions} 
+          headerOptions={tableHeaderOptions} 
           receptions={receptions}
         />
       </StyledMainZone>

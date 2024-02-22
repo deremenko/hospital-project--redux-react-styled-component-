@@ -1,4 +1,5 @@
 import Reception from "../Reception";
+import { generateUniqueId } from "../../helpers/generateUniqueId"
 import { 
   StyledTitle, 
   StyledTitleText, 
@@ -15,7 +16,7 @@ const Receptions = ({
       <thead>
         <StyledTitle>
           {headerOptions.map((option) => (
-            <StyledTitleText className={option.className}>{option.value}</StyledTitleText>
+            <StyledTitleText key={generateUniqueId()} className={option.className}>{option.value}</StyledTitleText>
           ))}
         </StyledTitle>
       </thead>
