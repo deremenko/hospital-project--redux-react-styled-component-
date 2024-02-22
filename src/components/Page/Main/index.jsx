@@ -51,15 +51,16 @@ const Main = () => {
   };
 
   const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
-    setNewReception({
-      ...newReception,
+    const newSelectedOption = event.target.value;
+    setSelectedOption(newSelectedOption);
+    setNewReception((prevReception) => ({
+      ...prevReception,
       doctor: {
-        value: selectedOption
+        value: newSelectedOption
       },
-    })
-    console.log(newReception.doctor.value)
+    }));
   };
+  
 
   const handleSnackbarClose = () => {
     setErrorOpen(false);
