@@ -13,6 +13,18 @@ const StyledButton = styled.button`
   text-align: center;
   align-self: flex-end;
   cursor: pointer;
+
+  &.big-size-button {
+    align-self: inherit;
+    margin: 10px;
+    min-width: 110px;
+  }
+
+  &.icon-button {
+    border: none;
+    align-self: center;
+    margin: 25px 10px 0px 10px;
+  }
 `;
 
 const StyledTextButton = styled.p`

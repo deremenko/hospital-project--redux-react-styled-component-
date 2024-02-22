@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import Header from "../../Header";
 import Form from "../../Form";
 import CustomInput from "../../UI/CustomInput";
@@ -25,6 +26,7 @@ const Authorization = () => {
   });
   const errorFromBackend = useSelector((state) => state.error);
   const { authorization }  = useActions();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (errorFromBackend) {
@@ -69,6 +71,8 @@ const Authorization = () => {
       login: newUser.login.value.trim(),
       password: newUser.password.value.trim(),
     });
+
+    navigate("/main");
   };
 
   const handleSnackbarClose = () => {

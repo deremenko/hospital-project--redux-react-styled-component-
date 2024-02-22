@@ -1,12 +1,15 @@
-import { Routes, Route } from 'react-router-dom';
-import RegistrationPage from './components/Page/Registration';
-import AuthorizationPage from './components/Page/Authorization';
+import { Routes, Route } from "react-router-dom";
+import RegistrationPage from "./components/Page/Registration";
+import AuthorizationPage from "./components/Page/Authorization";
+import Main from "./components/Page/Main";
+import PrivateRoute from "./components/PrivateRoute/index"
 
 const App = () => {
   return (
     <Routes>
       <Route path="/registration" element={<RegistrationPage />} /> 
       <Route path="/authorization" element={<AuthorizationPage />} /> 
+      <Route path="/main" element={<PrivateRoute WrappedComponent={<Main />} />} /> 
     </Routes>
   );
 }

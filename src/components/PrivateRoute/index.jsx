@@ -1,16 +1,15 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = (WrappedComponent) => {
-  const isAuth = useSelector((state) => state.isAuth);
+const PrivateRoute = ({ WrappedComponent }) => {
+  const isAuth = useSelector((state) => state.user.isAuth);
+  
+  if (isAuth) {
+    return WrappedComponent;
+  } 
 
-  return (props) => {
-    if (isAuth) {
-      return <WrappedComponent {...props} />;
-    } 
-
-    return <Redirect to="/authorization" />;
-  };
+  return <Navigate to="/authorization" />;
 };
 
 export default PrivateRoute;

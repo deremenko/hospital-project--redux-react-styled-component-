@@ -8,11 +8,12 @@ const CustomInput = ({
   placeholder, 
   handleInputChange,
   name,
+  className,
   type 
 }) => {
   return (
     <>
-      <StyledInput>
+      <StyledInput className={className}>
         <label htmlFor={idLabel}>
           {label}
         </label>
