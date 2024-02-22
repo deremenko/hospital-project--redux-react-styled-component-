@@ -171,7 +171,7 @@ const Main = () => {
         />
         <CustomButton 
           textButton="Добавить" 
-          className="__big-size" 
+          className="_big-size" 
           actionButton={addReception}
         />
       </ReceptionForm>
