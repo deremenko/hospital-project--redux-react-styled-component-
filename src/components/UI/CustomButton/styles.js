@@ -14,13 +14,13 @@ const StyledButton = styled.button`
   align-self: flex-end;
   cursor: pointer;
 
-  &.big-size-button {
+  &._big-size {
     align-self: inherit;
     margin: 10px;
     min-width: 110px;
   }
 
-  &.icon-button {
+  &._icon {
     border: none;
     align-self: center;
     margin: 25px 10px 0px 10px;

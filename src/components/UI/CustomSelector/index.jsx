@@ -3,6 +3,7 @@ import { StyledSelector, StyledSelectorLine} from "./styles";
 const CustomSelector = ({  
   label, 
   labelId, 
+  name, 
   optionList, 
   actionSelector,
   selectedOption, 
@@ -12,7 +13,8 @@ const CustomSelector = ({
       <label htmlFor={labelId}>{label}</label>
       <StyledSelectorLine 
         id={labelId} 
-        onChange={actionSelector}
+        onChange={(event) => actionSelector(event.target.value, event.target.name)}
+        name={name}
       >
         <option value="">Выберите...</option>
         {optionList.map((option) => (

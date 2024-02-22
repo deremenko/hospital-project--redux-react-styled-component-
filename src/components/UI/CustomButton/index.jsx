@@ -6,9 +6,14 @@ const CustomButton = ({
   icon, 
   nameIcon, 
   actionButton, 
-  className }) => {
+  className 
+}) => {
   return (
-    <StyledButton type={type} onClick={actionButton} className={className}>
+    <StyledButton 
+      type={type} 
+      onClick={actionButton} 
+      className={className}
+    >
       {icon && <img src={icon} alt={nameIcon} />}
       <StyledTextButton>{textButton}</StyledTextButton>
     </StyledButton>

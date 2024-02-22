@@ -1,16 +1,11 @@
 import CustomButton from "../UI/CustomButton";
 import { StyledForm } from "./styles";
 
-const ReceptionForm = ({ children, textButton, actionButton}) => {
+const ReceptionForm = ({ children }) => {
 
   return (
     <StyledForm>
       {children}
-      <CustomButton 
-        textButton={textButton} 
-        className="big-size-button" 
-        actionButton={actionButton}
-      />
     </StyledForm>
   );
 }

@@ -1,14 +1,31 @@
 import axios from "axios";
-import { API_URL } from "../constants"
+import { refresh } from "../services/user"
+import { API_URL } from "../constants";
 
-const httpClient = axios.create({
+const api = axios.create({
   withCredentials: true,
   baseURL: API_URL,
 });
 
-httpClient.interceptors.request.use((config) => {
+api.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
   return config;
 });
 
-export default httpClient;
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.response && error.response.status === 401) {
+      const newToken = await refresh();
+      localStorage.setItem('token', newToken);
+
+      return api.request(error.config);
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+export default api;

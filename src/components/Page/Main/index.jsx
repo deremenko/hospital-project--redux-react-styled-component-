@@ -6,7 +6,7 @@ import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
 import ErrorSnackbar from "../../ErrorSnackbar"
 import CustomSelector from "../../UI/CustomSelector";
-import Reception from "../../Reception";
+import Receptions from "../../Receptions";
 import useActions from "../../../hook/useActions"
 import { doctorList } from "../../../constants"
 import { 
@@ -22,24 +22,34 @@ const Main = () => {
     complaint: {value: '', error: ''}
   });
 
-  const [selectedOption, setSelectedOption] = useState('');
-  
-  const [errorOpen, setErrorOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const tableHeaderOptions = [
+    {value: 'Имя', className: '_name'},
+    {value: 'Доктор', className: '_doctor'},
+    {value: 'Дата', className: '_date'},
+    {value: 'Жалоба', className: '_complaint'},
+    {value: '', className: '_action'},  
+  ]
 
-  const errorFromBackend = useSelector((state) => state.user.error);
-  const receptions = useSelector((state) => state.user.receptions);
+  const [error, setError] = useState({
+    errorOpen: false,
+    errorMessage: '',
+  });
+
+  const errorFromBackend = useSelector((state) => state.reception.error);
+  const receptions = useSelector((state) => state.reception.receptions);
   
-  const { loadReceptions, createReception }  = useActions();
+  const { fetchReceptions, submitReception }  = useActions();
 
   useEffect(() => {
-    loadReceptions();
+    fetchReceptions();
   }, []); 
 
   useEffect(() => {
     if (errorFromBackend) {
-      setErrorOpen(true);
-      setErrorMessage(errorFromBackend)
+      setError({
+        errorOpen: true,
+        errorMessage: errorFromBackend,
+      });
     }
   }, [errorFromBackend]);
 
@@ -50,59 +60,85 @@ const Main = () => {
     });
   };
 
-  const handleSelectChange = (event) => {
-    const newSelectedOption = event.target.value;
-    setSelectedOption(newSelectedOption);
-    setNewReception((prevReception) => ({
-      ...prevReception,
-      doctor: {
-        value: newSelectedOption
-      },
-    }));
-  };
-  
+  const addReception = () => {
+    const currentDate = new Date();
 
-  const handleSnackbarClose = () => {
-    setErrorOpen(false);
-  };
+    if (!newReception.name.value.trim()) {
+      setNewReception({
+        ...newReception,
+        name: {
+          error: "Строка не должна быть пустой",
+        },
+      });
 
-  const clearValues = () => {
-    setNewReception({
-      name: {value: '', error: '' },
-      doctor: {value: '', error: '' },
-      date: {value: '', error: ''},
-      complaint: {value: '', error: ''}
-    });
-  };
+      return;
+    }
 
-  const setReception = () => {
-    createReception({
+    if (!newReception.doctor.value.trim()) {
+      setNewReception({
+        ...newReception,
+        doctor: {
+          error: "Строка не должна быть пустой",
+        },
+      });
+
+      return;
+    }
+    
+    if (!newReception.date.value < currentDate) {
+      setNewReception({
+        ...newReception,
+        date: {
+          error: "Нельзя выбирать прошедшее число",
+        },
+      });
+
+      return;
+    }
+
+    if (!newReception.complaint.value.trim()) {
+      setNewReception({
+        ...newReception,
+        complaint: {
+          error: "Строка не должна быть пустой",
+        },
+      });
+
+      return;
+    }
+
+    submitReception({
       patient: newReception.name.value.trim(),
       doctor: newReception.doctor.value.trim(),
       date: newReception.date.value,
       complaint: newReception.complaint.value,
     })
 
-    clearValues();
+    setNewReception({
+      name: {value: '', error: '' },
+      doctor: {value: '', error: '' },
+      date: {value: '', error: ''},
+      complaint: {value: '', error: ''}
+    });
   }
 
   return (
     <StyledMainLaylout>
       <ErrorSnackbar 
-        open={errorOpen} 
-        handleClose={handleSnackbarClose} 
-        errorMessage={errorMessage} 
+        open={error.errorOpen} 
+        handleClose={() => setError({ ...error, errorOpen: false })}
+        errorMessage={error.errorMessage} 
       />
       <Header>
-      <CustomButton 
-        textButton="Выход"
-        type="button"
-        className="big-size-button "
-      />
+        <CustomButton 
+          textButton="Выход"
+          type="button"
+          className="_big-size"
+        />
       </Header>
-      <ReceptionForm textButton="Добавить" actionButton={setReception}>
+      <ReceptionForm >
         <CustomInput 
-          className="resectionInput" 
+          className="_horizontal-margin" 
           label="Имя:"
           handleInputChange={handleInputChange}
           value={newReception.name.value}
@@ -110,31 +146,38 @@ const Main = () => {
           type="text"
         />
         <CustomSelector 
-          actionSelector={handleSelectChange} 
+          actionSelector={handleInputChange} 
+          name="doctor"
           labelId="doctorSelector" 
           label="Доктор:"
           optionList={doctorList}
-          value={selectedOption}
+          value={newReception.doctor.value}
         />
         <CustomInput 
           type="date" 
           handleInputChange={handleInputChange} 
           value={newReception.date.value}
-          className="resectionInput" 
+          className="_horizontal-margin" 
           label="Дата:"
           name="date" 
         />
         <CustomInput 
           type="text"
           handleInputChange={handleInputChange} 
-          className="resectionInput" 
+          className="_horizontal-margin" 
           label="Жалоба:" 
           value={newReception.complaint.value}
           name="complaint"
         />
+        <CustomButton 
+          textButton="Добавить" 
+          className="__big-size" 
+          actionButton={addReception}
+        />
       </ReceptionForm>
       <StyledMainZone>
-        <Reception 
+        <Receptions
+          headerOptions = {tableHeaderOptions} 
           receptions={receptions}
         />
       </StyledMainZone>

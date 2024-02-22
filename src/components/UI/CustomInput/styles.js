@@ -4,7 +4,8 @@ const StyledInput = styled.div`
   width: 100%;
   font-size: 0.5em;
   margin: 0px 0px 20px;
-  &.resectionInput {
+
+  &._horizontal-margin {
     margin: 0px 0px 20px 5px;
   }
 `;
