@@ -1,6 +1,6 @@
 import { 
   loadReceptions, 
-  createReception 
+  createReceptionAPI 
 } from '../../services/reception.js';
 
 import {
@@ -13,7 +13,7 @@ import {
 } from '../actions/reception.js';
 
 
-const fetchReceptions = () => async (dispatch) => {
+export const fetchReceptions = () => async (dispatch) => {
   try {
     dispatch(getReceptions());
     
@@ -24,19 +24,12 @@ const fetchReceptions = () => async (dispatch) => {
   }
 };
 
-const submitReception = (reception) => async (dispatch) => {
+export const createReception = (reception) => async (dispatch) => {
   try {
     dispatch(addReception());
-    const response = await createReception(reception);
+    const response = await createReceptionAPI(reception);
     dispatch(addReceptionSuccess(response));
   } catch (error) {
     dispatch(addReceptionError(error.message));
   }
 };
-
-const actionCreators = { 
-  fetchReceptions, 
-  submitReception 
-};
-
-export default actionCreators;

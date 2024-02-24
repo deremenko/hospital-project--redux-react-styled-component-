@@ -109,6 +109,7 @@ const Registration = () => {
               placeholder="Логин" 
               value={newUser.login.value}
               handleInputChange={handleInputChange}
+              className="input-container"
               name="login"
               type="text"
             />
@@ -118,7 +119,8 @@ const Registration = () => {
               idLabel="password"
               placeholder="Пароль"
               value={newUser.password.value}
-              handleInputChange={handleInputChange} 
+              handleInputChange={handleInputChange}
+              className="input-container" 
               name="password"
               type="password"
             />
@@ -129,6 +131,7 @@ const Registration = () => {
               placeholder="Пароль" 
               value={newUser.repeatPassword.value}
               handleInputChange={handleInputChange}
+              className="input-container"
               name="repeatPassword" 
               type="password"
             />

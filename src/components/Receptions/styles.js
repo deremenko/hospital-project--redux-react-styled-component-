@@ -12,31 +12,31 @@ const StyledTitle = styled.tr`
   height: 100px;
   margin: 0px;
   background-color: rgba(196, 196, 196, 1);
+
+  th:nth-child(1) {
+    width: 25%;
+  }
+
+  th:nth-child(2) {
+    width: 25%;
+  }  
+
+  th:nth-child(3) {
+    width: 15%;
+  }
+
+  th:nth-child(4) {
+    width: 27%;
+  }
+
+  th:nth-child(5) {
+    width: 9%;
+  }
 `;
 
 const StyledTitleText = styled.th`
   font-size: 0.7em;
   margin: 10px;
-
-  &._name {
-    width: 25%;
-  }
-
-  &._doctor {
-    width: 25%;
-  }
-
-  &._date {
-    width: 15%;
-  }
-
-  &._complaint {
-    width: 27%;
-  }
-
-  &._action {
-    width: 9%;
-  }
 `;
 
 const StyledReceptionTable = styled.tbody`

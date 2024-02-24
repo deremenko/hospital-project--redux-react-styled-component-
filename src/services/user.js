@@ -12,6 +12,6 @@ export const authorizationUser = async (user) => {
 };
 
 export const refresh = async () => {
-  const response = await api.пуе(`${API_URL}/user/refresh`);
+  const response = await api.get(`${API_URL}/user/refresh`);
   return response.data;
 };

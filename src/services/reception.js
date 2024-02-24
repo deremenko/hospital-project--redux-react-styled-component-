@@ -6,7 +6,7 @@ export const loadReceptions = async () => {
   return response.data;
 };
 
-export const createReception = async (reception) => {
+export const createReceptionAPI = async (reception) => {
   const response = await api.post(`${API_URL}/reception`, reception);
   return response.data;
 };

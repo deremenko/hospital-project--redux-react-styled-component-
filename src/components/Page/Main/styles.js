@@ -12,14 +12,7 @@ const StyledMainZone = styled.div`
   min-height: 700px;
 `;
 
-const StyledContentContainer = styled.div`
-  justify-self: center;
-  align-self: center;
-  grid-area: actions;
-`;
-
 export { 
   StyledMainZone, 
-  StyledContentContainer, 
   StyledMainLaylout 
 };

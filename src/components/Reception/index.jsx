@@ -7,26 +7,26 @@ const Reception = ({
   reception, 
 }) => {
   return (
-<tr key={reception._id}>
-  <StyledTableColum>{reception.patient}</StyledTableColum>
-  <StyledTableColum>{reception.doctor}</StyledTableColum>
-  <StyledTableColum>{reception.date.split('T')[0]}</StyledTableColum>
-  <StyledTableColum>{reception.complaint}</StyledTableColum>
-  <StyledTableColum>
-    <CustomButton 
-      icon={deleteIcon} 
-      className="_icon"
-      nameIcon="bin" 
-      type="button"
-    />
-    <CustomButton 
-      icon={editIcon} 
-      className="_icon" 
-      nameIcon="pen" 
-      type="button"
-    />
-  </StyledTableColum>
-</tr>
+    <tr>
+      <StyledTableColum>{reception.patient}</StyledTableColum>
+      <StyledTableColum>{reception.doctor}</StyledTableColum>
+      <StyledTableColum>{reception.date.split('T')[0]}</StyledTableColum>
+      <StyledTableColum>{reception.complaint}</StyledTableColum>
+      <StyledTableColum>
+        <CustomButton 
+          icon={deleteIcon} 
+          className="button-body button-body_icon"
+          nameIcon="bin" 
+          type="button"
+        />
+        <CustomButton 
+          icon={editIcon} 
+          className="button-body button-body_icon" 
+          nameIcon="pen" 
+          type="button"
+        />
+      </StyledTableColum>
+    </tr>
   );
 }
 

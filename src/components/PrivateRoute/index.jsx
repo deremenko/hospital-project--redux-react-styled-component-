@@ -1,6 +1,6 @@
 import React from 'react';
+import Authorization from '../Page/Authorization';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({ WrappedComponent }) => {
   const isAuth = useSelector((state) => state.user.isAuth);
@@ -9,7 +9,7 @@ const PrivateRoute = ({ WrappedComponent }) => {
     return WrappedComponent;
   } 
 
-  return <Navigate to="/authorization" />;
+  return <Authorization />;
 };
 
 export default PrivateRoute;

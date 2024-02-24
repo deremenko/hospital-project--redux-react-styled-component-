@@ -25,8 +25,9 @@ const CustomInput = ({
           onChange={(event) => handleInputChange(event.target.value, event.target.name)}
           name={name}
         />
+        {error && <StyledError>{error}</StyledError>}
       </StyledInput>
-      {error && <StyledError>{error}</StyledError>}
+
     </>
   );
 }

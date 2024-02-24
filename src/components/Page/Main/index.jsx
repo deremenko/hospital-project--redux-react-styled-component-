@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Header from "../../Header";
-import CustomInput from "../../UI/CustomInput";
 import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
 import ErrorSnackbar from "../../ErrorSnackbar"
-import CustomSelector from "../../UI/CustomSelector";
 import Receptions from "../../Receptions";
 import useActions from "../../../hook/useActions"
-import { doctorList } from "../../../constants"
+import { doctorList, tableHeaderNames } from "../../../constants"
 import { 
   StyledMainZone, 
   StyledMainLaylout 
@@ -22,23 +20,14 @@ const Main = () => {
     complaint: {value: '', error: ''}
   });
 
-  const tableHeaderOptions = [
-    {value: 'Имя', className: '_name'},
-    {value: 'Доктор', className: '_doctor'},
-    {value: 'Дата', className: '_date'},
-    {value: 'Жалоба', className: '_complaint'},
-    {value: '', className: '_action'},  
-  ]
-
   const [error, setError] = useState({
     errorOpen: false,
     errorMessage: '',
   });
 
-  const errorFromBackend = useSelector((state) => state.reception.error);
-  const receptions = useSelector((state) => state.reception.receptions);
-  
-  const { fetchReceptions, submitReception }  = useActions();
+  const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
+
+  const { fetchReceptions, createReception }  = useActions();
 
   useEffect(() => {
     fetchReceptions();
@@ -107,11 +96,11 @@ const Main = () => {
       return;
     }
 
-    submitReception({
+    createReception({
       patient: newReception.name.value.trim(),
       doctor: newReception.doctor.value.trim(),
-      date: newReception.date.value,
-      complaint: newReception.complaint.value,
+      date: newReception.date.value.trim(),
+      complaint: newReception.complaint.value.trim(),
     })
 
     setNewReception({
@@ -133,51 +122,18 @@ const Main = () => {
         <CustomButton 
           textButton="Выход"
           type="button"
-          className="_big-size"
+          className="button-body button-body_big-size"
         />
       </Header>
-      <ReceptionForm >
-        <CustomInput 
-          className="_horizontal-margin" 
-          label="Имя:"
-          handleInputChange={handleInputChange}
-          value={newReception.name.value}
-          name="name"
-          type="text"
-        />
-        <CustomSelector 
-          actionSelector={handleInputChange} 
-          name="doctor"
-          labelId="doctorSelector" 
-          label="Доктор:"
-          optionList={doctorList}
-          value={newReception.doctor.value}
-        />
-        <CustomInput 
-          type="date" 
-          handleInputChange={handleInputChange} 
-          value={newReception.date.value}
-          className="_horizontal-margin" 
-          label="Дата:"
-          name="date" 
-        />
-        <CustomInput 
-          type="text"
-          handleInputChange={handleInputChange} 
-          className="_horizontal-margin" 
-          label="Жалоба:" 
-          value={newReception.complaint.value}
-          name="complaint"
-        />
-        <CustomButton 
-          textButton="Добавить" 
-          className="_big-size" 
-          actionButton={addReception}
-        />
-      </ReceptionForm>
+      <ReceptionForm 
+        addReception={addReception} 
+        handleInputChange={handleInputChange}
+        newReception={newReception}
+        doctorList = {doctorList}
+      />
       <StyledMainZone>
         <Receptions
-          headerOptions={tableHeaderOptions} 
+          tableHeaderNames={tableHeaderNames} 
           receptions={receptions}
         />
       </StyledMainZone>

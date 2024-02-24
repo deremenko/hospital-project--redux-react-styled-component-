@@ -12,7 +12,7 @@ import {
   submitAuthorizationError,
 } from '../actions/user.js';
 
-const registration = (newUser) => async (dispatch) => {
+export const registration = (newUser) => async (dispatch) => {
   try {
     dispatch(submitRegistration());
     
@@ -24,7 +24,7 @@ const registration = (newUser) => async (dispatch) => {
   }
 };
 
-const authorization = (newUser) => async (dispatch) => {
+export const authorization = (newUser) => async (dispatch) => {
   try {
     dispatch(submitAuthorization());
     
@@ -35,10 +35,3 @@ const authorization = (newUser) => async (dispatch) => {
     dispatch(submitAuthorizationError(error.message));
   }
 };
-
-const actionCreators = { 
-  registration, 
-  authorization, 
-};
-
-export default actionCreators;

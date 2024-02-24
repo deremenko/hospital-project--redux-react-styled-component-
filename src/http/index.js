@@ -12,19 +12,22 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.response.use(
-  (response) => {
-    return response;
+api.interceptors.response.use((config) => {
+    return config;
   },
   async (error) => {
-    if (error.response && error.response.status === 401) {
-      const newToken = await refresh();
-      localStorage.setItem('token', newToken);
-
-      return api.request(error.config);
+    const originalRequest = error.config;
+    if (error.response && error.response.status === 401 && error.config._isRetry) {
+      originalRequest._isRetry = true;
+      try {      
+        const newToken = await refresh();
+        localStorage.setItem('token', newToken);
+  
+        return api.request(originalRequest);
+      } catch (error) {
+        throw error;
+      }
     }
-
-    return Promise.reject(error);
   }
 );
 
