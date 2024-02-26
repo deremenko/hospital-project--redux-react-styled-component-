@@ -5,6 +5,9 @@ import {
   SUBMIT_AUTHORIZATION,
   SUBMIT_AUTHORIZATION_SUCCESS,
   SUBMIT_AUTHORIZATION_ERROR,
+  SUBMIT_DEAUTHORIZATION,
+  SUBMIT_DEAUTHORIZATION_SUCCESS,
+  SUBMIT_DEAUTHORIZATION_ERROR
 } from "../enums/user.js"
 
 export const submitRegistration  = () => ({
@@ -33,3 +36,17 @@ export const submitAuthorizationError = (error) => ({
   type: SUBMIT_AUTHORIZATION_ERROR,
   error,
 });
+
+export const submitDeauthorization  = () => ({
+  type: SUBMIT_DEAUTHORIZATION,
+});
+
+export const submitDeauthorizationSuccess = () => ({
+  type: SUBMIT_DEAUTHORIZATION_SUCCESS,
+});
+
+export const submitDeauthorizationError = (error) => ({
+  type: SUBMIT_DEAUTHORIZATION_ERROR,
+  error,
+});
+

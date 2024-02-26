@@ -15,3 +15,8 @@ export const refresh = async () => {
   const response = await api.get(`${API_URL}/user/refresh`);
   return response.data;
 };
+
+export const logoutUser  = async () => {
+  const response = await api.get(`${API_URL}/user/logout`, { withCredentials: true });
+  return response.data;
+};

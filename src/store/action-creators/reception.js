@@ -13,7 +13,7 @@ import {
 } from '../actions/reception.js';
 
 
-export const fetchReceptions = () => async (dispatch) => {
+export const loadUserReceptions = () => async (dispatch) => {
   try {
     dispatch(getReceptions());
     

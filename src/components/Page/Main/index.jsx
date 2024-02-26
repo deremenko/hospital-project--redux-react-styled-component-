@@ -27,10 +27,10 @@ const Main = () => {
 
   const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
 
-  const { fetchReceptions, createReception }  = useActions();
+  const { loadUserReceptions, createReception, deauthorizationUser }  = useActions();
 
   useEffect(() => {
-    fetchReceptions();
+    loadUserReceptions();
   }, []); 
 
   useEffect(() => {
@@ -120,6 +120,7 @@ const Main = () => {
       />
       <Header>
         <CustomButton 
+          actionButton={() => deauthorizationUser()}
           textButton="Выход"
           type="button"
           className="button-body button-body_big-size"

@@ -4,7 +4,10 @@ const StyledInput = styled.div`
   width: 100%;
   font-size: 0.5em;
 
-  &.input-container {
+  &.input-container,
+  &.reception-form-input-container,
+  &.authorization-input-container,
+  &.registration-input-container {
     margin: 0px 0px 20px;
   }
 

@@ -9,7 +9,11 @@ const StyledButton = styled.button`
   text-align: center;
   cursor: pointer;
 
-  &.button-body {
+  &.button-body,
+  &.form-button-body,
+  &.reception-form-button-body,
+  &.reception-button-body,
+  &.main-button-body {
     padding: 10px;
     margin: 25px 0px 0px 0px;
     background-color: rgb(255, 255, 255);
