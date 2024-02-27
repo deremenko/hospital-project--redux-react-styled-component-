@@ -12,7 +12,7 @@ const CustomButton = ({
     <StyledButton 
       type={type} 
       onClick={actionButton} 
-      className={className}
+      className={`custom-button-body ${className}`}
     >
       {icon && <img src={icon} alt={nameIcon} />}
       <StyledTextButton>{textButton}</StyledTextButton>

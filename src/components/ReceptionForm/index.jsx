@@ -12,7 +12,7 @@ const ReceptionForm = ({
   return (
     <StyledForm>
       <CustomInput  
-        className="custom-input-container custom-input-container_horizontal-margin" 
+        className="reception-form-input" 
         label="Имя:"
         error={newReception.name.error}
         handleInputChange={handleInputChange}
@@ -33,7 +33,7 @@ const ReceptionForm = ({
         error={newReception.date.error}
         handleInputChange={handleInputChange} 
         value={newReception.date.value}
-        className="custom-input-container custom-input-container_horizontal-margin" 
+        className="reception-form-input" 
         label="Дата:"
         name="date" 
       />
@@ -41,14 +41,14 @@ const ReceptionForm = ({
         type="text"
         error={newReception.complaint.error}
         handleInputChange={handleInputChange} 
-        className="custom-input-container custom-input-container_horizontal-margin" 
+        className="reception-form-input" 
         label="Жалоба:" 
         value={newReception.complaint.value}
         name="complaint"
       />
       <CustomButton 
         textButton="Добавить" 
-        className="custom-button-body custom-button-body_big-size" 
+        className="reception-form-button" 
         actionButton={addReception}
         type="button" 
       />

@@ -7,10 +7,6 @@ const StyledInput = styled.div`
   &.custom-input-container {
     margin: 0px 0px 20px;
   }
-
-  &.custom-input-container_horizontal-margin {
-    margin: 0px 0px 20px 5px;
-  }
 `;
 
 const StyledInputLine = styled.input`

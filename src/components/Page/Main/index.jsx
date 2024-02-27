@@ -123,7 +123,7 @@ const Main = () => {
           actionButton={() => logout()}
           textButton="Выход"
           type="button"
-          className="custom-button-body custom-button-body_big-size"
+          className="main-button"
         />
       </Header>
       <ReceptionForm 

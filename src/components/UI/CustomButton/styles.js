@@ -15,17 +15,6 @@ const StyledButton = styled.button`
     background-color: rgb(255, 255, 255);
     border-color: rgb(0 0 0 / 25%);
   }
-
-  &.custom-button-body_big-size {
-    align-self: inherit;
-    margin: 10px;
-    min-width: 110px;
-  }
-
-  &.custom-button-body_icon {
-    border: none;
-    margin: 25px 10px 0px 10px;
-  }
 `;
 
 const StyledTextButton = styled.p`

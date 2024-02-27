@@ -13,7 +13,7 @@ const CustomInput = ({
 }) => {
   return (
     <>
-      <StyledInput className={className}>
+      <StyledInput className={`custom-input-container ${className}`}>
         <label htmlFor={idLabel}>
           {label}
         </label>

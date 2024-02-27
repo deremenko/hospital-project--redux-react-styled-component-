@@ -5,13 +5,20 @@ import {
   StyledLink 
 } from './styles';
 
-const Form = ({ children, title, textLink, link, actionButton, textButton, type }) => {
+const Form = ({ 
+  children, 
+  title, 
+  textLink, 
+  link, 
+  actionButton, 
+  textButton, 
+  type 
+}) => {
   return (
     <StyledForm>
       <StyledHeader>{title}</StyledHeader>
       {children}
       <CustomButton 
-        className="custom-button-body"
         textButton={textButton} 
         actionButton={actionButton} 
         type={type}
