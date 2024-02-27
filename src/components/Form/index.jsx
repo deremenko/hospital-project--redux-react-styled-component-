@@ -11,7 +11,7 @@ const Form = ({ children, title, textLink, link, actionButton, textButton, type 
       <StyledHeader>{title}</StyledHeader>
       {children}
       <CustomButton 
-        className="form-button-body"
+        className="custom-button-body"
         textButton={textButton} 
         actionButton={actionButton} 
         type={type}

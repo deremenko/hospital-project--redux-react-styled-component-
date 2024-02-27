@@ -27,7 +27,7 @@ const Main = () => {
 
   const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
 
-  const { loadUserReceptions, createReception, deauthorizationUser }  = useActions();
+  const { loadUserReceptions, createReception, logout }  = useActions();
 
   useEffect(() => {
     loadUserReceptions();
@@ -120,10 +120,10 @@ const Main = () => {
       />
       <Header>
         <CustomButton 
-          actionButton={() => deauthorizationUser()}
+          actionButton={() => logout()}
           textButton="Выход"
           type="button"
-          className="button-body button-body_big-size"
+          className="custom-button-body custom-button-body_big-size"
         />
       </Header>
       <ReceptionForm 

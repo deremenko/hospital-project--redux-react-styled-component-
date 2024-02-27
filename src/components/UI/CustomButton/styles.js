@@ -9,24 +9,20 @@ const StyledButton = styled.button`
   text-align: center;
   cursor: pointer;
 
-  &.button-body,
-  &.form-button-body,
-  &.reception-form-button-body,
-  &.reception-button-body,
-  &.main-button-body {
+  &.custom-button-body {
     padding: 10px;
     margin: 25px 0px 0px 0px;
     background-color: rgb(255, 255, 255);
     border-color: rgb(0 0 0 / 25%);
   }
 
-  &.button-body_big-size {
+  &.custom-button-body_big-size {
     align-self: inherit;
     margin: 10px;
     min-width: 110px;
   }
 
-  &.button-body_icon {
+  &.custom-button-body_icon {
     border: none;
     margin: 25px 10px 0px 10px;
   }

@@ -104,7 +104,7 @@ const Authorization = () => {
               placeholder="Логин" 
               value={newUser.login.value}
               handleInputChange={handleInputChange}
-              className="authorization-input-container"
+              className="custom-input-container"
               name="login"
               type="text"
             />
@@ -115,7 +115,7 @@ const Authorization = () => {
               placeholder="Пароль"
               value={newUser.password.value}
               handleInputChange={handleInputChange}
-              className="authorization-input-container" 
+              className="custom-input-container" 
               name="password"
               type="password"
             />

@@ -11,9 +11,9 @@ import {
   submitAuthorization,
   submitAuthorizationSuccess,
   submitAuthorizationError,
-  submitDeauthorization,
-  submitDeauthorizationSuccess,
-  submitDeauthorizationError,
+  confirmDeauthorization,
+  confirmDeauthorizationSuccess,
+  confirmDeauthorizationError,
 } from '../actions/user.js';
 
 export const registration = (newUser) => async (dispatch) => {
@@ -40,15 +40,15 @@ export const authorization = (newUser) => async (dispatch) => {
   }
 };
 
-export const deauthorizationUser = () => async (dispatch) => {
+export const logout = () => async (dispatch) => {
   try {
-    dispatch(submitDeauthorization());
+    dispatch(confirmDeauthorization());
     
     await logoutUser();
     localStorage.removeItem("token");
-    dispatch(submitDeauthorizationSuccess());
+    dispatch(confirmDeauthorizationSuccess());
   } catch (error) {
-    dispatch(submitDeauthorizationError(error.message));
+    dispatch(confirmDeauthorizationError(error.message));
   }
 };
 

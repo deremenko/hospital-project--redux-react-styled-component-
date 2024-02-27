@@ -4,14 +4,11 @@ const StyledInput = styled.div`
   width: 100%;
   font-size: 0.5em;
 
-  &.input-container,
-  &.reception-form-input-container,
-  &.authorization-input-container,
-  &.registration-input-container {
+  &.custom-input-container {
     margin: 0px 0px 20px;
   }
 
-  &.input-container_horizontal-margin {
+  &.custom-input-container_horizontal-margin {
     margin: 0px 0px 20px 5px;
   }
 `;

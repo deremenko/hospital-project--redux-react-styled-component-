@@ -5,9 +5,9 @@ import {
   SUBMIT_AUTHORIZATION,
   SUBMIT_AUTHORIZATION_SUCCESS,
   SUBMIT_AUTHORIZATION_ERROR,
-  SUBMIT_DEAUTHORIZATION,
-  SUBMIT_DEAUTHORIZATION_SUCCESS,
-  SUBMIT_DEAUTHORIZATION_ERROR
+  CONFIRM_DEAUTHORIZATION,
+  CONFIRM_DEAUTHORIZATION_SUCCESS,
+  CONFIRM_DEAUTHORIZATION_ERROR
 } from "../enums/user.js"
 
 const initialState = {
@@ -57,20 +57,20 @@ const userReducer = (state = initialState, action) => {
         error: action.error,
       };
 
-    case SUBMIT_DEAUTHORIZATION:
+    case CONFIRM_DEAUTHORIZATION:
       return {
         ...state,
         error: null,
       };
 
-    case SUBMIT_DEAUTHORIZATION_SUCCESS:
+    case CONFIRM_DEAUTHORIZATION_SUCCESS:
       return {
         ...state,
         error: null,
         isAuth: false,
       };
 
-    case SUBMIT_DEAUTHORIZATION_ERROR:
+    case CONFIRM_DEAUTHORIZATION_ERROR:
       return {
         ...state,
         error: action.error,

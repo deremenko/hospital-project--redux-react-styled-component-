@@ -15,13 +15,13 @@ const Reception = ({
       <StyledTableColum>
         <CustomButton 
           icon={deleteIcon} 
-          className="reception-button-body button-body_icon"
+          className="custom-button-body custom-button-body_icon"
           nameIcon="bin" 
           type="button"
         />
         <CustomButton 
           icon={editIcon} 
-          className="reception-button-body button-body_icon" 
+          className="custom-button-body custom-button-body_icon" 
           nameIcon="pen" 
           type="button"
         />
