@@ -1,6 +1,7 @@
 import { 
   loadReceptions, 
-  createReceptionAPI 
+  createReceptionAPI,
+  editReceptionAPI 
 } from '../../services/reception.js';
 
 import {
@@ -10,6 +11,9 @@ import {
   addReception,
   addReceptionSuccess,
   addReceptionError,
+  editReception,
+  editReceptionSuccess,
+  editReceptionError
 } from '../actions/reception.js';
 
 
@@ -31,5 +35,15 @@ export const createReception = (reception) => async (dispatch) => {
     dispatch(addReceptionSuccess(response));
   } catch (error) {
     dispatch(addReceptionError(error.message));
+  }
+};
+
+export const changeReception = (reception, updateReceptions, id) => async (dispatch) => {
+  try {
+    dispatch(editReception());
+    await editReceptionAPI(reception, id);
+    dispatch(editReceptionSuccess(updateReceptions));
+  } catch (error) {
+    dispatch(editReceptionError(error.message));
   }
 };

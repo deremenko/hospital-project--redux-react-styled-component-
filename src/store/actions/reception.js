@@ -4,7 +4,10 @@ import {
   GET_RECEPTIONS_ERROR,
   ADD_RECEPTION,
   ADD_RECEPTION_SUCCESS,
-  ADD_RECEPTION_ERROR
+  ADD_RECEPTION_ERROR,
+  EDIT_RECEPTION,
+  EDIT_RECEPTION_SUCCESS,
+  EDIT_RECEPTION_ERROR 
 } from "../enums/reception.js"
 
 export const getReceptions  = () => ({
@@ -32,5 +35,19 @@ export const addReceptionSuccess = (payload) => ({
 
 export const addReceptionError = (error) => ({
   type: ADD_RECEPTION_ERROR,
+  error,
+});
+
+export const editReception  = () => ({
+  type: EDIT_RECEPTION,
+});
+
+export const editReceptionSuccess = (payload) => ({
+  type: EDIT_RECEPTION_SUCCESS,
+  payload,
+});
+
+export const editReceptionError = (error) => ({
+  type: EDIT_RECEPTION_ERROR,
   error,
 });

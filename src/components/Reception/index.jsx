@@ -5,6 +5,7 @@ import { StyledTableColum } from './styles';
 
 const Reception = ({ 
   reception, 
+  openEditModal 
 }) => {
   return (
     <tr>
@@ -22,6 +23,7 @@ const Reception = ({
         <CustomButton 
           icon={editIcon} 
           className="reception-button" 
+          actionButton={() => openEditModal(reception._id)}
           nameIcon="pen" 
           type="button"
         />
