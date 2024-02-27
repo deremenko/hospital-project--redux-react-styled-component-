@@ -113,7 +113,7 @@ const Authorization = () => {
               idLabel="password"
               placeholder="Пароль"
               value={newUser.password.value}
-              handleInputChange={handleInputChange} 
+              handleInputChange={handleInputChange}
               name="password"
               type="password"
             />

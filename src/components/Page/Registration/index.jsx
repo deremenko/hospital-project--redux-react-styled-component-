@@ -23,7 +23,7 @@ const Registration = () => {
   });
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const errorFromBackend = useSelector((state) => state.error);
+  const errorFromBackend = useSelector((state) => state.user.error);
   const { registration }  = useActions();
 
   useEffect(() => {
@@ -118,7 +118,7 @@ const Registration = () => {
               idLabel="password"
               placeholder="Пароль"
               value={newUser.password.value}
-              handleInputChange={handleInputChange} 
+              handleInputChange={handleInputChange}
               name="password"
               type="password"
             />

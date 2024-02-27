@@ -17,6 +17,10 @@ const HeaderProvider = ({ children }) => {
         setHeader("Войти в систему");
         break;
 
+      case "/main":
+        setHeader("Приемы");
+        break;
+
       default:
         setHeader("");
     }

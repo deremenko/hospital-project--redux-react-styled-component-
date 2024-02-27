@@ -1,14 +1,22 @@
-import { registerUser, authorizationUser } from '../../services/user.js';
+import { 
+  registerUser, 
+  authorizationUser, 
+  logoutUser,
+} from '../../services/user.js';
+
 import {
   submitRegistration,
   submitRegistrationSuccess,
   submitRegistrationError,
   submitAuthorization,
   submitAuthorizationSuccess,
-  submitAuthorizationError
+  submitAuthorizationError,
+  startDeauthorization,
+  deauthorizationSuccess,
+  showDeauthorizationError,
 } from '../actions/user.js';
 
-const registration = (newUser) => async (dispatch) => {
+export const registration = (newUser) => async (dispatch) => {
   try {
     dispatch(submitRegistration());
     
@@ -20,7 +28,7 @@ const registration = (newUser) => async (dispatch) => {
   }
 };
 
-const authorization = (newUser) => async (dispatch) => {
+export const authorization = (newUser) => async (dispatch) => {
   try {
     dispatch(submitAuthorization());
     
@@ -32,6 +40,15 @@ const authorization = (newUser) => async (dispatch) => {
   }
 };
 
-const actionCreators = { registration, authorization };
+export const logout = () => async (dispatch) => {
+  try {
+    dispatch(startDeauthorization());
+    
+    await logoutUser();
+    localStorage.removeItem("token");
+    dispatch(deauthorizationSuccess());
+  } catch (error) {
+    dispatch(showDeauthorizationError(error.message));
+  }
+};
 
-export default actionCreators;
