@@ -1,7 +1,7 @@
 import { 
   loadReceptions, 
-  createReceptionAPI,
-  editReceptionAPI 
+  createOneReception,
+  editOneReception 
 } from '../../services/reception.js';
 
 import {
@@ -31,18 +31,18 @@ export const loadUserReceptions = () => async (dispatch) => {
 export const createReception = (reception) => async (dispatch) => {
   try {
     dispatch(addReception());
-    const response = await createReceptionAPI(reception);
+    const response = await createOneReception(reception);
     dispatch(addReceptionSuccess(response));
   } catch (error) {
     dispatch(addReceptionError(error.message));
   }
 };
 
-export const changeReception = (reception, updateReceptions, id) => async (dispatch) => {
+export const editUserReception = (reception, id) => async (dispatch) => {
   try {
     dispatch(editReception());
-    await editReceptionAPI(reception, id);
-    dispatch(editReceptionSuccess(updateReceptions));
+    const response = await editOneReception(reception, id);
+    dispatch(editReceptionSuccess(response));
   } catch (error) {
     dispatch(editReceptionError(error.message));
   }

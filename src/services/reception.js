@@ -6,12 +6,12 @@ export const loadReceptions = async () => {
   return response.data;
 };
 
-export const createReceptionAPI = async (reception) => {
+export const createOneReception = async (reception) => {
   const response = await api.post(`${API_URL}/reception`, reception);
   return response.data;
 };
 
-export const editReceptionAPI = async (reception, id) => {
+export const editOneReception = async (reception, id) => {
   const response = await api.patch(`${API_URL}/reception/${id}`, reception);
   return response.data;
 }; 

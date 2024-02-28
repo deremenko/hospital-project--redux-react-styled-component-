@@ -65,7 +65,9 @@ const receptionReducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        receptions: action.payload,
+        receptions: state.receptions.map(reception =>
+          reception._id === action.payload._id ? action.payload : reception
+        ),
       };
 
     case EDIT_RECEPTION_ERROR:

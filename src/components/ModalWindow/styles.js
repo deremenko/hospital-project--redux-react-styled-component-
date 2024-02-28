@@ -7,7 +7,7 @@ const StyledContainer = styled.div`
   min-height: 300px;
   width: 642px;
 
-  .action-dialog-button {
+  .modal-window-button {
     align-self: inherit;
     margin: 10px;
     min-width: 110px;

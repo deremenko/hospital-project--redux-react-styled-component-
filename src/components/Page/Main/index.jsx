@@ -3,13 +3,10 @@ import { useSelector } from 'react-redux';
 import Header from "../../Header";
 import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
-import EditReceptionForm from "../../EditReceptionForm";
+import EditReceptionModal from "../../EditReceptionModal";
 import ErrorSnackbar from "../../ErrorSnackbar"
 import Receptions from "../../Receptions";
-import Modal from "../../Modal";
-import ActionDialog from "../../ActionDialog"
 import useActions from "../../../hook/useActions"
-import { updateObjectArray } from "../../../helpers/updateObjectArray"
 import { doctorList, tableHeaderNames } from "../../../constants"
 import { 
   StyledMainZone, 
@@ -17,25 +14,22 @@ import {
 } from "./styles";
 
 const Main = () => { 
-  const [idTargetReception, setIdTargetReception] = useState('');
+  const [idTargetReception, setIdTargetReception] = useState(null);
   const [newReception, setNewReception] = useState({ 
-    name: {value: '', error: '' },
-    doctor: {value: '', error: '' },
-    date: {value: '', error: ''},
-    complaint: {value: '', error: ''}
+    name: { value: '', error: '' },
+    doctor: { value: '', error: '' },
+    date: { value: '', error: '' },
+    complaint: { value: '', error: ''}
   });
 
   const [updateReception, setUpdateReception] = useState({ 
-    name: {value: '', error: '' },
-    doctor: {value: '', error: '' },
-    date: {value: '', error: ''},
-    complaint: {value: '', error: ''}
+    name: { value: '', error: '' },
+    doctor: { value: '', error: '' },
+    date: { value: '', error: '' },
+    complaint: { value: '', error: ''}
   });
 
-  const [modalsShow, setModalsShow] = useState({ 
-    modal: false,
-    editWindow: false,
-  });
+  const [isOpenEditModa, setIsOpenEditModa] = useState(false);
 
   const [error, setError] = useState({
     errorOpen: false,
@@ -44,7 +38,7 @@ const Main = () => {
 
   const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
 
-  const { loadUserReceptions, createReception, logout, changeReception }  = useActions();
+  const { loadUserReceptions, createReception, logout, editUserReception }  = useActions();
 
   useEffect(() => {
     loadUserReceptions();
@@ -76,18 +70,14 @@ const Main = () => {
   const openEditModal = (id) => {
     const originalReception = receptions.find(item => item._id === id);
     
+    setIsOpenEditModa(true);
+
     setUpdateReception({
       name: {value: originalReception.patient, error: '' },
       doctor: {value: originalReception.doctor, error: '' },
       date: {value: originalReception.date, error: ''},
       complaint: {value: originalReception.complaint, error: ''}
     })
-
-    setModalsShow({
-      ...modalsShow, 
-      editWindow: true,
-      modal: true,
-    });
 
     setIdTargetReception(id)
   };
@@ -147,10 +137,10 @@ const Main = () => {
     })
 
     setNewReception({
-      name: {value: '', error: '' },
-      doctor: {value: '', error: '' },
-      date: {value: '', error: ''},
-      complaint: {value: '', error: ''}
+      name: { value: '', error: '' },
+      doctor: { value: '', error: ''  },
+      date: { value: '', error: '' },
+      complaint: { value: '', error: '' }
     });
   }
 
@@ -208,53 +198,23 @@ const Main = () => {
       complaint: updateReception.complaint.value.trim(),
     }
 
-    const updatedReceptions = updateObjectArray(
-      receptions, 
-      idTargetReception, 
-      updatedOneReception
-    )
-
-    changeReception(
+    editUserReception(
       updatedOneReception, 
-      updatedReceptions, 
       idTargetReception
     )
 
     setUpdateReception({
-      name: {value: '', error: '' },
-      doctor: {value: '', error: '' },
-      date: {value: '', error: ''},
-      complaint: {value: '', error: ''}
+      name: { value: '', error: '' },
+      doctor: { value: '', error: '' },
+      date: { value: '', error: '' },
+      complaint: { value: '', error: ''}
     });
 
-    setModalsShow({
-      deleteWindow: false, 
-      editWindow: false,
-      modal: false,
-    });
+    setIsOpenEditModa(false);
   }
 
   return (
-    <StyledMainLaylout>
-      {modalsShow.modal && 
-        <Modal>
-          {modalsShow.editWindow && 
-            <ActionDialog 
-              title="Изменить прием"  
-              confirmText="Сохранить"
-              cancelText="Отмена"
-              cancelAction={() => setModalsShow({...modalsShow, deleteWindow: false, modal: false})}
-              confirmAction={editReception}
-            >
-              <EditReceptionForm 
-                handleUpdateInputChange={handleUpdateInputChange}
-                updateReception={updateReception}
-                doctorList={doctorList}
-               />
-            </ActionDialog>
-          }          
-        </Modal>
-      }      
+    <StyledMainLaylout>            
       <ErrorSnackbar 
         open={error.errorOpen} 
         handleClose={() => setError({ ...error, errorOpen: false })}
@@ -281,6 +241,15 @@ const Main = () => {
           openEditModal={openEditModal}
         />
       </StyledMainZone>
+      {isOpenEditModa && 
+        <EditReceptionModal 
+          handleUpdateInputChange={handleUpdateInputChange}
+          updateReception={updateReception}
+          doctorList={doctorList}
+          cancelAction={() => setIsOpenEditModa(false)}
+          editReception={editReception}
+        />
+      } 
     </StyledMainLaylout>
   );
 }

@@ -7,7 +7,7 @@ const StyledForm = styled.div`
   min-height: 405px;
   width: 100%;
 
-  .edit-reception-form-input {
+  .edit-reception-modal-input {
     margin: 0px 0px 20px 5px;
   }
 `;

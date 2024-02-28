@@ -6,7 +6,7 @@ import {
   StyledActionInterface 
 } from './styles';
 
-const ActionDialog = ({ 
+const ModalWindow = ({ 
   title, 
   confirmAction, 
   cancelAction, 
@@ -24,13 +24,13 @@ const ActionDialog = ({
       </StyledContent>
       <StyledActionInterface>
         <CustomButton 
-          className="action-dialog-button"
+          className="modal-window-button"
           textButton={cancelText} 
           actionButton={cancelAction} 
           type="button"
         />
         <CustomButton 
-          className="action-dialog-button"
+          className="modal-window-button"
           textButton={confirmText} 
           actionButton={confirmAction} 
           type="button"
@@ -40,4 +40,4 @@ const ActionDialog = ({
   );
 }
 
-export default ActionDialog;
+export default ModalWindow;
