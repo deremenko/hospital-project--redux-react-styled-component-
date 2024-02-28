@@ -1,3 +1,4 @@
+import Portal from "../Portal";
 import CustomButton from "../UI/CustomButton";
 import { 
   StyledContainer, 
@@ -15,6 +16,7 @@ const ModalWindow = ({
   children 
 }) => {
   return (
+  <Portal>
     <StyledContainer>
       <StyledHeader>
         {title}
@@ -37,6 +39,7 @@ const ModalWindow = ({
         />
       </StyledActionInterface>
     </StyledContainer>
+  </Portal>  
   );
 }
 

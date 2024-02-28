@@ -14,22 +14,22 @@ import {
 } from "./styles";
 
 const Main = () => { 
-  const [idTargetReception, setIdTargetReception] = useState(null);
+  const [idUpdatedReceptio, setIdTargetReception] = useState(null);
   const [newReception, setNewReception] = useState({ 
     name: { value: '', error: '' },
     doctor: { value: '', error: '' },
     date: { value: '', error: '' },
-    complaint: { value: '', error: ''}
+    complaint: { value: '', error: '' }
   });
 
   const [updateReception, setUpdateReception] = useState({ 
     name: { value: '', error: '' },
     doctor: { value: '', error: '' },
     date: { value: '', error: '' },
-    complaint: { value: '', error: ''}
+    complaint: { value: '', error: '' }
   });
 
-  const [isOpenEditModa, setIsOpenEditModa] = useState(false);
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
 
   const [error, setError] = useState({
     errorOpen: false,
@@ -70,13 +70,13 @@ const Main = () => {
   const openEditModal = (id) => {
     const originalReception = receptions.find(item => item._id === id);
     
-    setIsOpenEditModa(true);
+    setIsOpenEditModal(true);
 
     setUpdateReception({
-      name: {value: originalReception.patient, error: '' },
-      doctor: {value: originalReception.doctor, error: '' },
-      date: {value: originalReception.date, error: ''},
-      complaint: {value: originalReception.complaint, error: ''}
+      name: { value: originalReception.patient, error: '' },
+      doctor: { value: originalReception.doctor, error: '' },
+      date: { value: originalReception.date, error: '' },
+      complaint: { value: originalReception.complaint, error:'' }
     })
 
     setIdTargetReception(id)
@@ -138,7 +138,7 @@ const Main = () => {
 
     setNewReception({
       name: { value: '', error: '' },
-      doctor: { value: '', error: ''  },
+      doctor: { value: '', error: '' },
       date: { value: '', error: '' },
       complaint: { value: '', error: '' }
     });
@@ -200,17 +200,17 @@ const Main = () => {
 
     editUserReception(
       updatedOneReception, 
-      idTargetReception
+      idUpdatedReceptio
     )
 
     setUpdateReception({
       name: { value: '', error: '' },
       doctor: { value: '', error: '' },
       date: { value: '', error: '' },
-      complaint: { value: '', error: ''}
+      complaint: { value: '', error: '' }
     });
 
-    setIsOpenEditModa(false);
+    setIsOpenEditModal(false);
   }
 
   return (
@@ -241,12 +241,12 @@ const Main = () => {
           openEditModal={openEditModal}
         />
       </StyledMainZone>
-      {isOpenEditModa && 
+      {isOpenEditModal && 
         <EditReceptionModal 
           handleUpdateInputChange={handleUpdateInputChange}
           updateReception={updateReception}
           doctorList={doctorList}
-          cancelAction={() => setIsOpenEditModa(false)}
+          cancelAction={() => setIsOpenEditModal(false)}
           editReception={editReception}
         />
       } 
