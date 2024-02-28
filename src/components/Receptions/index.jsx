@@ -9,7 +9,8 @@ import {
 const Receptions = ({ 
   receptions,
   tableHeaderNames,
-  openEditModal 
+  openEditModal, 
+  openDeleteModal
 }) => {
   return (
     <StyledReceptionSection>
@@ -26,6 +27,7 @@ const Receptions = ({
             key={reception._id} 
             reception = {reception} 
             openEditModal={openEditModal}
+            openDeleteModal={openDeleteModal}
           />
         ))}
       </StyledReceptionTable>

@@ -7,7 +7,10 @@ import {
   ADD_RECEPTION_ERROR,
   EDIT_RECEPTION,
   EDIT_RECEPTION_SUCCESS,
-  EDIT_RECEPTION_ERROR  
+  EDIT_RECEPTION_ERROR,
+  DELETE_RECEPTION,
+  DELETE_RECEPTION_SUCCESS,
+  DELETE_RECEPTION_ERROR,  
 } from "../enums/reception.js"
 
 const initialState = {
@@ -71,6 +74,27 @@ const receptionReducer = (state = initialState, action) => {
       };
 
     case EDIT_RECEPTION_ERROR:
+      return {
+        ...state,
+        error: action.error,
+      };   
+      
+    case DELETE_RECEPTION:
+      return {
+        ...state,
+        error: null,
+      };
+    
+    case DELETE_RECEPTION_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        receptions: state.receptions.filter(reception => 
+          reception._id !== action.payload._id
+        ),
+      };
+
+    case DELETE_RECEPTION_ERROR:
       return {
         ...state,
         error: action.error,
