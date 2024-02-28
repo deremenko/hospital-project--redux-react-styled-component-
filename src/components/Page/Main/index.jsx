@@ -14,7 +14,7 @@ import {
 } from "./styles";
 
 const Main = () => { 
-  const [idUpdatedReceptio, setIdTargetReception] = useState(null);
+  const [idUpdatedReception, setIdTargetReception] = useState(null);
   const [newReception, setNewReception] = useState({ 
     name: { value: '', error: '' },
     doctor: { value: '', error: '' },
@@ -200,7 +200,7 @@ const Main = () => {
 
     editUserReception(
       updatedOneReception, 
-      idUpdatedReceptio
+      idUpdatedReception
     )
 
     setUpdateReception({
