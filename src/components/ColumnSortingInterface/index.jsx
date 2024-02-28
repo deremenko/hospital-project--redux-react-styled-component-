@@ -11,6 +11,7 @@ const ColumnSortingInterface = ({
 }) => {
   return (
     <StyledColumnSort>
+      <span>Сортироват по:</span>
       <CustomSelector
         className="column-sorting-interface-input"
         actionSelector={setSortColumnName}
@@ -18,12 +19,15 @@ const ColumnSortingInterface = ({
         optionList={sortFieldName}
       />
       {sortColumnName !== "None" && 
+      <>
+        <span>Направление:</span>
         <CustomSelector
           className="column-sorting-interface-input"
           actionSelector={setSortDirection}
           value={sortDirection}
           optionList={sortDirectionOptions}
         />
+      </>  
       }
     </StyledColumnSort>
   );

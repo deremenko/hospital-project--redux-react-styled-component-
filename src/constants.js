@@ -24,6 +24,6 @@ export const sortFieldName = [
 ];
 
 export const sortDirectionOptions = [
-  { id: generateUniqueId(), label: 'Asc' },
-  { id: generateUniqueId(), label: 'Desc' },
+  { id: generateUniqueId(), label: 'По возрастанию' },
+  { id: generateUniqueId(), label: 'По убыванию' },
 ];

@@ -37,7 +37,7 @@ const Main = () => {
   });
 
   const [sortColumnName, setSortColumnName] = useState('None'); 
-  const [sortDirection, setSortDirection] = useState('Asc'); 
+  const [sortDirection, setSortDirection] = useState('По возрастанию'); 
 
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
@@ -105,7 +105,7 @@ const Main = () => {
         const compareValueA = a[sortName];
         const compareValueB = b[sortName];
 
-        if (sortDirection === 'Asc') {
+        if (sortDirection === 'По возрастанию') {
           return compareValueA.localeCompare(compareValueB);
         } else {
           return compareValueB.localeCompare(compareValueA);
