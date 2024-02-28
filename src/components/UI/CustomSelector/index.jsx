@@ -7,10 +7,11 @@ const CustomSelector = ({
   optionList, 
   actionSelector,
   selectedOption, 
-  value
+  value,
+  className
 }) => {
   return (
-    <StyledSelector>
+    <StyledSelector className={className}>
       <label htmlFor={labelId}>{label}</label>
       <StyledSelectorLine 
         id={labelId} 

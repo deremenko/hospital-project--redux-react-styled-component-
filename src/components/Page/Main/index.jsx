@@ -5,10 +5,16 @@ import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
 import EditReceptionModal from "../../EditReceptionModal";
 import DeleteReceptionModal from '../../DeleteReceptionModal';
+import ColumnSortingInterface from "../../ColumnSortingInterface"
 import ErrorSnackbar from "../../ErrorSnackbar"
 import Receptions from "../../Receptions";
 import useActions from "../../../hook/useActions"
-import { doctorList, tableHeaderNames } from "../../../constants"
+import { 
+  doctorList, 
+  tableHeaderNames, 
+  sortFieldName,
+  sortDirectionOptions 
+} from "../../../constants"
 import { 
   StyledMainZone, 
   StyledMainLaylout 
@@ -29,6 +35,9 @@ const Main = () => {
     date: { value: '', error: '' },
     complaint: { value: '', error: '' }
   });
+
+  const [sortColumnName, setSortColumnName] = useState('None'); 
+  const [sortDirection, setSortDirection] = useState('Asc'); 
 
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
@@ -74,6 +83,37 @@ const Main = () => {
       [key]: { error: newReception[key].error, value: newValue },
     });
   };
+
+  const handleSort = () => {
+    let sortedReceptions = [...receptions];
+    let sortName = '';
+
+    if (sortColumnName !== 'None') {
+      switch (sortColumnName) {
+        case 'Имя':
+          sortName = "patient";
+          break;
+        case 'Доктор':
+          sortName = "doctor";
+          break;
+        case 'Дата':
+          sortName = "date";
+          break;
+      }
+      
+      sortedReceptions.sort((a, b) => {
+        const compareValueA = a[sortName];
+        const compareValueB = b[sortName];
+
+        if (sortDirection === 'Asc') {
+          return compareValueA.localeCompare(compareValueB);
+        } else {
+          return compareValueB.localeCompare(compareValueA);
+        }
+      });
+    }
+    return sortedReceptions
+  }  
 
   const openEditModal = (id) => {
     const originalReception = receptions.find(item => item._id === id);
@@ -253,10 +293,17 @@ const Main = () => {
         newReception={newReception}
         doctorList = {doctorList}
       />
+      <ColumnSortingInterface 
+        sortFieldName={sortFieldName} 
+        sortDirectionOptions={sortDirectionOptions}
+        setSortDirection={setSortDirection}
+        setSortColumnName={setSortColumnName}
+        sortColumnName={sortColumnName}
+      />
       <StyledMainZone>
         <Receptions
           tableHeaderNames={tableHeaderNames} 
-          receptions={receptions}
+          receptions={handleSort()}
           openEditModal={openEditModal}
           openDeleteModal={openDeleteModal}
         />
