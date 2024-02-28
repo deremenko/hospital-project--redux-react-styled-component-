@@ -4,6 +4,7 @@ import Header from "../../Header";
 import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
 import EditReceptionModal from "../../EditReceptionModal";
+import DeleteReceptionModal from '../../DeleteReceptionModal';
 import ErrorSnackbar from "../../ErrorSnackbar"
 import Receptions from "../../Receptions";
 import useActions from "../../../hook/useActions"
@@ -30,6 +31,7 @@ const Main = () => {
   });
 
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
   const [error, setError] = useState({
     errorOpen: false,
@@ -38,7 +40,13 @@ const Main = () => {
 
   const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
 
-  const { loadUserReceptions, createReception, logout, editUserReception }  = useActions();
+  const { 
+    loadUserReceptions, 
+    createReception, 
+    logout, 
+    editUserReception, 
+    deleteUserReception 
+  } = useActions();
 
   useEffect(() => {
     loadUserReceptions();
@@ -80,6 +88,11 @@ const Main = () => {
     })
 
     setIdTargetReception(id)
+  };
+
+  const openDeleteModal = (id) => {
+    setIdTargetReception(id);
+    setIsOpenDeleteModal(true);
   };
 
   const addReception = () => {
@@ -213,6 +226,12 @@ const Main = () => {
     setIsOpenEditModal(false);
   }
 
+  const deleteReception = () => {
+    deleteUserReception(idUpdatedReception)
+
+    setIsOpenDeleteModal(false)
+  }
+
   return (
     <StyledMainLaylout>            
       <ErrorSnackbar 
@@ -239,6 +258,7 @@ const Main = () => {
           tableHeaderNames={tableHeaderNames} 
           receptions={receptions}
           openEditModal={openEditModal}
+          openDeleteModal={openDeleteModal}
         />
       </StyledMainZone>
       {isOpenEditModal && 
@@ -248,6 +268,12 @@ const Main = () => {
           doctorList={doctorList}
           cancelAction={() => setIsOpenEditModal(false)}
           editReception={editReception}
+        />
+      } 
+      {isOpenDeleteModal && 
+        <DeleteReceptionModal 
+          cancelAction={() => setIsOpenDeleteModal(false)}
+          deleteReception={deleteReception}
         />
       } 
     </StyledMainLaylout>

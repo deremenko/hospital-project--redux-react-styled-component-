@@ -1,7 +1,8 @@
 import { 
   loadReceptions, 
   createOneReception,
-  editOneReception 
+  editOneReception,
+  deleteOneReception 
 } from '../../services/reception.js';
 
 import {
@@ -13,7 +14,10 @@ import {
   addReceptionError,
   editReception,
   editReceptionSuccess,
-  editReceptionError
+  editReceptionError,
+  deleteReception,
+  deleteReceptionSuccess,
+  deleteReceptionError,
 } from '../actions/reception.js';
 
 
@@ -45,5 +49,15 @@ export const editUserReception = (reception, id) => async (dispatch) => {
     dispatch(editReceptionSuccess(response));
   } catch (error) {
     dispatch(editReceptionError(error.message));
+  }
+};
+
+export const deleteUserReception = (id) => async (dispatch) => {
+  try {
+    dispatch(deleteReception());
+    const response = await deleteOneReception(id);
+    dispatch(deleteReceptionSuccess(response));
+  } catch (error) {
+    dispatch(deleteReceptionError(error.message));
   }
 };

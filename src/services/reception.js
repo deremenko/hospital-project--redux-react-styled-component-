@@ -15,3 +15,8 @@ export const editOneReception = async (reception, id) => {
   const response = await api.patch(`${API_URL}/reception/${id}`, reception);
   return response.data;
 }; 
+
+export const deleteOneReception = async (id) => {
+  const response = await api.delete(`${API_URL}/reception/${id}`);
+  return response.data;
+};
