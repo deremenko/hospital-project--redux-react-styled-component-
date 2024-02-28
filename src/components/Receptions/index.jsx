@@ -9,6 +9,7 @@ import {
 const Receptions = ({ 
   receptions,
   tableHeaderNames,
+  openEditModal 
 }) => {
   return (
     <StyledReceptionSection>
@@ -21,7 +22,11 @@ const Receptions = ({
       </thead>
       <StyledReceptionTable>
         {receptions.map((reception) => (
-          <Reception key={reception._id} reception = {reception} />
+          <Reception 
+            key={reception._id} 
+            reception = {reception} 
+            openEditModal={openEditModal}
+          />
         ))}
       </StyledReceptionTable>
     </StyledReceptionSection>

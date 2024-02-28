@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Header from "../../Header";
 import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
+import EditReceptionModal from "../../EditReceptionModal";
 import ErrorSnackbar from "../../ErrorSnackbar"
 import Receptions from "../../Receptions";
 import useActions from "../../../hook/useActions"
@@ -13,12 +14,22 @@ import {
 } from "./styles";
 
 const Main = () => { 
+  const [idUpdatedReception, setIdTargetReception] = useState(null);
   const [newReception, setNewReception] = useState({ 
-    name: {value: '', error: '' },
-    doctor: {value: '', error: '' },
-    date: {value: '', error: ''},
-    complaint: {value: '', error: ''}
+    name: { value: '', error: '' },
+    doctor: { value: '', error: '' },
+    date: { value: '', error: '' },
+    complaint: { value: '', error: '' }
   });
+
+  const [updateReception, setUpdateReception] = useState({ 
+    name: { value: '', error: '' },
+    doctor: { value: '', error: '' },
+    date: { value: '', error: '' },
+    complaint: { value: '', error: '' }
+  });
+
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
 
   const [error, setError] = useState({
     errorOpen: false,
@@ -27,7 +38,7 @@ const Main = () => {
 
   const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
 
-  const { loadUserReceptions, createReception, logout }  = useActions();
+  const { loadUserReceptions, createReception, logout, editUserReception }  = useActions();
 
   useEffect(() => {
     loadUserReceptions();
@@ -47,6 +58,28 @@ const Main = () => {
       ...newReception,
       [key]: { error: newReception[key].error, value: newValue },
     });
+  };
+
+  const handleUpdateInputChange = (newValue, key) => {
+    setUpdateReception({
+      ...updateReception,
+      [key]: { error: newReception[key].error, value: newValue },
+    });
+  };
+
+  const openEditModal = (id) => {
+    const originalReception = receptions.find(item => item._id === id);
+    
+    setIsOpenEditModal(true);
+
+    setUpdateReception({
+      name: { value: originalReception.patient, error: '' },
+      doctor: { value: originalReception.doctor, error: '' },
+      date: { value: originalReception.date, error: '' },
+      complaint: { value: originalReception.complaint, error:'' }
+    })
+
+    setIdTargetReception(id)
   };
 
   const addReception = () => {
@@ -104,15 +137,84 @@ const Main = () => {
     })
 
     setNewReception({
-      name: {value: '', error: '' },
-      doctor: {value: '', error: '' },
-      date: {value: '', error: ''},
-      complaint: {value: '', error: ''}
+      name: { value: '', error: '' },
+      doctor: { value: '', error: '' },
+      date: { value: '', error: '' },
+      complaint: { value: '', error: '' }
     });
   }
 
+  const editReception = () => {
+    const currentDate = new Date();
+    
+    if (!updateReception.name.value.trim()) {
+      setUpdateReception({
+        ...updateReception,
+        name: {
+          error: "Строка не должна быть пустой",
+        },
+      });
+
+      return;
+    }
+
+    if (!updateReception.doctor.value.trim()) {
+      setUpdateReception({
+        ...updateReception,
+        doctor: {
+          error: "Строка не должна быть пустой",
+        },
+      });
+
+      return;
+    }
+    
+    if (updateReception.date.value < currentDate) {
+      setUpdateReception({
+        ...updateReception,
+        date: {
+          error: "Нельзя выбирать прошедшее число",
+        },
+      });
+
+      return;
+    }
+
+    if (!updateReception.complaint.value.trim()) {
+      setUpdateReception({
+        ...updateReception,
+        complaint: {
+          error: "Строка не должна быть пустой",
+        },
+      });
+
+      return;
+    }
+
+    const updatedOneReception = {
+      patient: updateReception.name.value.trim(),
+      doctor: updateReception.doctor.value.trim(),
+      date: updateReception.date.value.trim(),
+      complaint: updateReception.complaint.value.trim(),
+    }
+
+    editUserReception(
+      updatedOneReception, 
+      idUpdatedReception
+    )
+
+    setUpdateReception({
+      name: { value: '', error: '' },
+      doctor: { value: '', error: '' },
+      date: { value: '', error: '' },
+      complaint: { value: '', error: '' }
+    });
+
+    setIsOpenEditModal(false);
+  }
+
   return (
-    <StyledMainLaylout>
+    <StyledMainLaylout>            
       <ErrorSnackbar 
         open={error.errorOpen} 
         handleClose={() => setError({ ...error, errorOpen: false })}
@@ -136,8 +238,18 @@ const Main = () => {
         <Receptions
           tableHeaderNames={tableHeaderNames} 
           receptions={receptions}
+          openEditModal={openEditModal}
         />
       </StyledMainZone>
+      {isOpenEditModal && 
+        <EditReceptionModal 
+          handleUpdateInputChange={handleUpdateInputChange}
+          updateReception={updateReception}
+          doctorList={doctorList}
+          cancelAction={() => setIsOpenEditModal(false)}
+          editReception={editReception}
+        />
+      } 
     </StyledMainLaylout>
   );
 }

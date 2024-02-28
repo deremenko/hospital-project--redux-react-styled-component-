@@ -4,7 +4,10 @@ import {
   GET_RECEPTIONS_ERROR,
   ADD_RECEPTION,
   ADD_RECEPTION_SUCCESS,
-  ADD_RECEPTION_ERROR 
+  ADD_RECEPTION_ERROR,
+  EDIT_RECEPTION,
+  EDIT_RECEPTION_SUCCESS,
+  EDIT_RECEPTION_ERROR  
 } from "../enums/reception.js"
 
 const initialState = {
@@ -51,6 +54,27 @@ const receptionReducer = (state = initialState, action) => {
         ...state,
         error: action.error,
       };
+    
+    case EDIT_RECEPTION:
+      return {
+        ...state,
+        error: null,
+      };
+    
+    case EDIT_RECEPTION_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        receptions: state.receptions.map(reception =>
+          reception._id === action.payload._id ? action.payload : reception
+        ),
+      };
+
+    case EDIT_RECEPTION_ERROR:
+      return {
+        ...state,
+        error: action.error,
+      };    
 
     default:
       return state;

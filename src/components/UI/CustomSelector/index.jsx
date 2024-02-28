@@ -7,6 +7,7 @@ const CustomSelector = ({
   optionList, 
   actionSelector,
   selectedOption, 
+  value
 }) => {
   return (
     <StyledSelector>
@@ -16,7 +17,7 @@ const CustomSelector = ({
         onChange={(event) => actionSelector(event.target.value, event.target.name)}
         name={name}
       >
-        <option value="">Выберите...</option>
+        <option>{value}</option>
         {optionList.map((option) => (
           <option key={option.id} value={selectedOption}>
             {option.label}
