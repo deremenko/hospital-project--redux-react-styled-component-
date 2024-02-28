@@ -84,7 +84,7 @@ const Main = () => {
     });
   };
 
-  const handleSort = () => {
+  const sortReceptions = () => {
     let sortedReceptions = [...receptions];
     let sortName = '';
 
@@ -303,7 +303,7 @@ const Main = () => {
       <StyledMainZone>
         <Receptions
           tableHeaderNames={tableHeaderNames} 
-          receptions={handleSort()}
+          receptions={sortReceptions()}
           openEditModal={openEditModal}
           openDeleteModal={openDeleteModal}
         />
