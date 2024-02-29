@@ -17,9 +17,9 @@ export const tableHeaderNames = [
 ]
 
 export const sortFieldName = [
-  { id: generateUniqueId(), label: 'Имя' },
-  { id: generateUniqueId(), label: 'Доктор' },
-  { id: generateUniqueId(), label: 'Дата' },
+  { id: generateUniqueId(), label: 'Имя', value: "patient" },
+  { id: generateUniqueId(), label: 'Доктор', value: "doctor" },
+  { id: generateUniqueId(), label: 'Дата', value: "date"},
 ];
 
 export const sortDirectionOptions = [

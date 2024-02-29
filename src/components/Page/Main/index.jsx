@@ -95,20 +95,8 @@ const Main = () => {
   };
 
   const sortReceptions = () => {
-    let sortFieldNames = '';
-    if (sortSettings.fieldName) {
-      switch (sortSettings.fieldName) {
-        case 'Имя':
-          sortFieldNames = "patient";
-          break;
-        case 'Доктор':
-          sortFieldNames = "doctor";
-          break;
-        case 'Дата':
-          sortFieldNames = "date";
-          break;
-      }
-      return sortArray(receptions, sortFieldNames, sortSettings.direction)
+    if (sortSettings.fieldName && sortSettings.direction) {
+      return sortArray(receptions, sortSettings.fieldName, sortSettings.direction)
     } 
     return receptions   
   }  

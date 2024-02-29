@@ -20,7 +20,7 @@ const CustomSelector = ({
       >
         <option>{value}</option>
         {optionList.map((option) => (
-          <option key={option.id} value={selectedOption}>
+          <option key={option.id} value={option.value? option.value: selectedOption}>
             {option.label}
           </option>
         ))}
