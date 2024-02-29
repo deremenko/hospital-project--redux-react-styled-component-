@@ -4,6 +4,7 @@ const StyledSort = styled.div`
   display: flex;
   align-items: center;
   justify-content: end;
+  width: 95%;
   min-height: 115px;
 
   .sorting-form-input {
