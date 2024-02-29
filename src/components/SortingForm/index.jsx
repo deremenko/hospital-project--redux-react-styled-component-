@@ -19,7 +19,6 @@ const SortingForm = ({
         optionList={sortFieldName}
       />
       {sortSettings.fieldName !== "" && 
-      <>
         <CustomSelector
           name="direction"
           className="sorting-form-input"
@@ -29,7 +28,6 @@ const SortingForm = ({
           value={sortSettings.direction}
           optionList={sortDirectionOptions}
         />
-      </>  
       }
     </StyledSort>
   );
