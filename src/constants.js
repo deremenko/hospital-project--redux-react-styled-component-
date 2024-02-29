@@ -20,7 +20,6 @@ export const sortFieldName = [
   { id: generateUniqueId(), label: 'Имя' },
   { id: generateUniqueId(), label: 'Доктор' },
   { id: generateUniqueId(), label: 'Дата' },
-  { id: generateUniqueId(), label: 'None' },
 ];
 
 export const sortDirectionOptions = [

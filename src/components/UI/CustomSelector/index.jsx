@@ -1,4 +1,4 @@
-import { StyledSelector, StyledSelectorLine} from "./styles";
+import { StyledSelector, StyledSelectorLine, StyledLabel } from "./styles";
 
 const CustomSelector = ({  
   label, 
@@ -12,7 +12,7 @@ const CustomSelector = ({
 }) => {
   return (
     <StyledSelector className={className}>
-      <label htmlFor={labelId}>{label}</label>
+      <StyledLabel htmlFor={labelId}>{label}</StyledLabel>
       <StyledSelectorLine 
         id={labelId} 
         onChange={(event) => actionSelector(event.target.value, event.target.name)}

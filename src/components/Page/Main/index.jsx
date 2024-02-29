@@ -5,10 +5,11 @@ import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
 import EditReceptionModal from "../../EditReceptionModal";
 import DeleteReceptionModal from '../../DeleteReceptionModal';
-import ColumnSortingInterface from "../../ColumnSortingInterface"
+import SortingForm from "../../SortingForm"
 import ErrorSnackbar from "../../ErrorSnackbar"
 import Receptions from "../../Receptions";
-import useActions from "../../../hook/useActions"
+import useActions from "../../../hook/useActions";
+import { sortArray } from "../../../helpers/sortArray";
 import { 
   doctorList, 
   tableHeaderNames, 
@@ -36,8 +37,10 @@ const Main = () => {
     complaint: { value: '', error: '' }
   });
 
-  const [sortColumnName, setSortColumnName] = useState('None'); 
-  const [sortDirection, setSortDirection] = useState('По возрастанию'); 
+  const [sortSettings, setSortSettings] = useState({
+    fieldName: '',
+    direction: 'По возрастанию',
+  });
 
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
@@ -84,35 +87,30 @@ const Main = () => {
     });
   };
 
-  const sortReceptions = () => {
-    let sortedReceptions = [...receptions];
-    let sortName = '';
+  const handleSortSelector = (newValue, key) => {
+    setSortSettings({
+      ...sortSettings,
+      [key]: newValue,
+    });
+  };
 
-    if (sortColumnName !== 'None') {
-      switch (sortColumnName) {
+  const sortReceptions = () => {
+    let sortFieldNames = '';
+    if (sortSettings.fieldName) {
+      switch (sortSettings.fieldName) {
         case 'Имя':
-          sortName = "patient";
+          sortFieldNames = "patient";
           break;
         case 'Доктор':
-          sortName = "doctor";
+          sortFieldNames = "doctor";
           break;
         case 'Дата':
-          sortName = "date";
+          sortFieldNames = "date";
           break;
       }
-      
-      sortedReceptions.sort((a, b) => {
-        const compareValueA = a[sortName];
-        const compareValueB = b[sortName];
-
-        if (sortDirection === 'По возрастанию') {
-          return compareValueA.localeCompare(compareValueB);
-        } else {
-          return compareValueB.localeCompare(compareValueA);
-        }
-      });
-    }
-    return sortedReceptions
+      return sortArray(receptions, sortFieldNames, sortSettings.direction)
+    } 
+    return receptions   
   }  
 
   const openEditModal = (id) => {
@@ -293,12 +291,11 @@ const Main = () => {
         newReception={newReception}
         doctorList = {doctorList}
       />
-      <ColumnSortingInterface 
+      <SortingForm 
         sortFieldName={sortFieldName} 
         sortDirectionOptions={sortDirectionOptions}
-        setSortDirection={setSortDirection}
-        setSortColumnName={setSortColumnName}
-        sortColumnName={sortColumnName}
+        handleSortSelector={handleSortSelector}
+        sortSettings={sortSettings}
       />
       <StyledMainZone>
         <Receptions
