@@ -1,11 +1,15 @@
+import CustomButton from "../UI/CustomButton";
 import CustomSelector from "../UI/CustomSelector";
+import plusFilter from "../../img/plus.svg"
 import { StyledSort } from "./styles";
 
 const SortingForm = ({ 
   sortFieldName,
   sortDirectionOptions, 
   handleSortSelector,
-  sortSettings
+  sortSettings,
+  startFiltering,
+  actionButton
 }) => {
   return (
     <StyledSort>
@@ -27,6 +31,15 @@ const SortingForm = ({
           actionSelector={handleSortSelector}
           value={sortSettings.direction}
           optionList={sortDirectionOptions}
+        />
+      }
+      {!startFiltering &&
+        <CustomButton
+          icon={plusFilter} 
+          actionButton={actionButton}
+          className="sorting-form-button" 
+          nameIcon="plus" 
+          type="button"  
         />
       }
     </StyledSort>

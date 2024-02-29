@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 
-const StyledSort = styled.div`
+const StyledFilter = styled.div`
   display: flex;
   align-items: center;
   justify-content: end;
   width: 95%;
-  min-height: 115px;
+  min-height: 80px;
 
-  .sorting-form-input {
+  .date-filter-form-input {
+    display: flex;
     align-items: center;
     flex-direction: row;
     margin: 0px 15px 0px 5px;
@@ -15,11 +16,17 @@ const StyledSort = styled.div`
     min-height: 30px;
   }
 
-  .sorting-form-button {
+  .date-filter-form-button {
+    align-self: inherit;
+    margin: 10px;
+    min-width: 110px;
+  }
+
+  .date-filter-form-button__icon {
     border: none;
     background-color: rgb(213 239 255);
     margin: 0px;
   }
 `;
 
-export { StyledSort }
+export { StyledFilter }

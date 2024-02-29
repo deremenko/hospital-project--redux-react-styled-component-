@@ -6,10 +6,12 @@ import CustomButton from "../../UI/CustomButton";
 import EditReceptionModal from "../../EditReceptionModal";
 import DeleteReceptionModal from '../../DeleteReceptionModal';
 import SortingForm from "../../SortingForm"
+import DateFilterForm from '../../DateFilterForm';
 import ErrorSnackbar from "../../ErrorSnackbar"
 import Receptions from "../../Receptions";
 import useActions from "../../../hook/useActions";
 import { sortArray } from "../../../helpers/sortArray";
+import { filterValuesInRange } from "../../../helpers/filterValuesInRange"
 import { 
   doctorList, 
   tableHeaderNames, 
@@ -42,6 +44,13 @@ const Main = () => {
     direction: 'По возрастанию',
   });
 
+  const [startFiltering, setStartFiltering] = useState(false);
+  const [dateRange, setDateRange] = useState({
+    startDate: '',
+    endDate: '',
+  });
+  
+
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
@@ -51,7 +60,8 @@ const Main = () => {
   });
 
   const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
-
+  const [safeCopyArray, setSafeCopyArray] = useState([]);
+  
   const { 
     loadUserReceptions, 
     createReception, 
@@ -59,6 +69,12 @@ const Main = () => {
     editUserReception, 
     deleteUserReception 
   } = useActions();
+
+  useEffect(() => {
+    if (receptions) {
+      setSafeCopyArray([...receptions]);
+    }
+  }, [receptions]);
 
   useEffect(() => {
     loadUserReceptions();
@@ -94,13 +110,36 @@ const Main = () => {
     });
   };
 
+  const handleInputFilterDate = (newValue, key) => {
+    setDateRange({
+      ...dateRange,
+      [key]: newValue
+    });
+  };
+
   const sortReceptions = () => {
     if (sortSettings.fieldName && sortSettings.direction) {
-      return sortArray(receptions, sortSettings.fieldName, sortSettings.direction)
+      return sortArray(safeCopyArray, sortSettings.fieldName, sortSettings.direction)
     } 
-    return receptions   
-  }  
+    return safeCopyArray   
+  };
 
+  const cancelFilterReceptions = () => {
+    setStartFiltering(false)
+    setDateRange({
+      startDate: '',
+      endDate: '',
+    })
+    setSafeCopyArray(receptions)
+  };
+
+  const filterDateReceptions = () => {
+    setSafeCopyArray(() => {
+      const filteredReceptions = filterValuesInRange(receptions, "date", dateRange.startDate, dateRange.endDate);
+      return [...filteredReceptions];
+    });
+  };
+  
   const openEditModal = (id) => {
     const originalReception = receptions.find(item => item._id === id);
     
@@ -284,7 +323,17 @@ const Main = () => {
         sortDirectionOptions={sortDirectionOptions}
         handleSortSelector={handleSortSelector}
         sortSettings={sortSettings}
+        startFiltering={startFiltering}
+        actionButton={() => setStartFiltering(true)}
       />
+      {startFiltering && 
+        <DateFilterForm 
+          dateRange={dateRange}
+          cancelAction={() => cancelFilterReceptions()}
+          actionButton={() => filterDateReceptions()}
+          handleInputFilterDate={handleInputFilterDate}
+        />
+      }
       <StyledMainZone>
         <Receptions
           tableHeaderNames={tableHeaderNames} 
