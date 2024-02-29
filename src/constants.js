@@ -15,3 +15,14 @@ export const tableHeaderNames = [
   {value: 'Жалоба'},
   {value: ''},  
 ]
+
+export const sortFieldName = [
+  { id: generateUniqueId(), label: 'Имя', value: "patient" },
+  { id: generateUniqueId(), label: 'Доктор', value: "doctor" },
+  { id: generateUniqueId(), label: 'Дата', value: "date"},
+];
+
+export const sortDirectionOptions = [
+  { id: generateUniqueId(), label: 'По возрастанию' },
+  { id: generateUniqueId(), label: 'По убыванию' },
+];

@@ -5,10 +5,17 @@ import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
 import EditReceptionModal from "../../EditReceptionModal";
 import DeleteReceptionModal from '../../DeleteReceptionModal';
+import SortingForm from "../../SortingForm"
 import ErrorSnackbar from "../../ErrorSnackbar"
 import Receptions from "../../Receptions";
-import useActions from "../../../hook/useActions"
-import { doctorList, tableHeaderNames } from "../../../constants"
+import useActions from "../../../hook/useActions";
+import { sortArray } from "../../../helpers/sortArray";
+import { 
+  doctorList, 
+  tableHeaderNames, 
+  sortFieldName,
+  sortDirectionOptions 
+} from "../../../constants"
 import { 
   StyledMainZone, 
   StyledMainLaylout 
@@ -28,6 +35,11 @@ const Main = () => {
     doctor: { value: '', error: '' },
     date: { value: '', error: '' },
     complaint: { value: '', error: '' }
+  });
+
+  const [sortSettings, setSortSettings] = useState({
+    fieldName: '',
+    direction: 'По возрастанию',
   });
 
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
@@ -74,6 +86,20 @@ const Main = () => {
       [key]: { error: newReception[key].error, value: newValue },
     });
   };
+
+  const handleSortSelector = (newValue, key) => {
+    setSortSettings({
+      ...sortSettings,
+      [key]: newValue,
+    });
+  };
+
+  const sortReceptions = () => {
+    if (sortSettings.fieldName && sortSettings.direction) {
+      return sortArray(receptions, sortSettings.fieldName, sortSettings.direction)
+    } 
+    return receptions   
+  }  
 
   const openEditModal = (id) => {
     const originalReception = receptions.find(item => item._id === id);
@@ -253,10 +279,16 @@ const Main = () => {
         newReception={newReception}
         doctorList = {doctorList}
       />
+      <SortingForm 
+        sortFieldName={sortFieldName} 
+        sortDirectionOptions={sortDirectionOptions}
+        handleSortSelector={handleSortSelector}
+        sortSettings={sortSettings}
+      />
       <StyledMainZone>
         <Receptions
           tableHeaderNames={tableHeaderNames} 
-          receptions={receptions}
+          receptions={sortReceptions()}
           openEditModal={openEditModal}
           openDeleteModal={openDeleteModal}
         />
