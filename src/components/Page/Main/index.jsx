@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 import Header from "../../Header";
 import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
@@ -17,7 +16,8 @@ import {
   doctorList, 
   tableHeaderNames, 
   sortFieldName,
-  sortDirectionOptions 
+  sortDirectionOptions,
+  defaultTime 
 } from "../../../constants"
 import { 
   StyledMainZone, 
@@ -135,16 +135,16 @@ const Main = () => {
   };
 
   const filterDateReceptions = () => {
-    setBackupOfReceptions(() => {
-      const filteredReceptions = filterValuesInRange(
-        receptions, 
-        "date", 
-        dateRange.startDate, 
-        moment(dateRange.endDate).format('YYYY-MM-DDTHH:mm:10')
-      );
-      return [...filteredReceptions];
-    });
+    const filteredReceptions = filterValuesInRange(
+      receptions, 
+      "date", 
+      dateRange.startDate, 
+      dateRange.endDate + defaultTime
+    );
+  
+    setBackupOfReceptions([...filteredReceptions]);
   };
+  
   
   const openEditModal = (id) => {
     const originalReception = receptions.find(item => item._id === id);

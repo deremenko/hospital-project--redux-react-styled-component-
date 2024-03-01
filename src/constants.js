@@ -26,3 +26,5 @@ export const sortDirectionOptions = [
   { id: generateUniqueId(), label: 'По возрастанию' },
   { id: generateUniqueId(), label: 'По убыванию' },
 ];
+
+export const defaultTime = "T10T00:00:00.000Z"
