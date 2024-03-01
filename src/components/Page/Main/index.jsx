@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 import Header from "../../Header";
 import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
@@ -60,7 +61,7 @@ const Main = () => {
   });
 
   const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
-  const [safeCopyArray, setSafeCopyArray] = useState([]);
+  const [backupOfReceptions, setBackupOfReceptions] = useState([]);
   
   const { 
     loadUserReceptions, 
@@ -72,7 +73,7 @@ const Main = () => {
 
   useEffect(() => {
     if (receptions) {
-      setSafeCopyArray([...receptions]);
+      setBackupOfReceptions([...receptions]);
     }
   }, [receptions]);
 
@@ -119,9 +120,9 @@ const Main = () => {
 
   const sortReceptions = () => {
     if (sortSettings.fieldName && sortSettings.direction) {
-      return sortArray(safeCopyArray, sortSettings.fieldName, sortSettings.direction)
+      return sortArray(backupOfReceptions, sortSettings.fieldName, sortSettings.direction)
     } 
-    return safeCopyArray   
+    return backupOfReceptions   
   };
 
   const cancelFilterReceptions = () => {
@@ -130,12 +131,17 @@ const Main = () => {
       startDate: '',
       endDate: '',
     })
-    setSafeCopyArray(receptions)
+    setBackupOfReceptions(receptions)
   };
 
   const filterDateReceptions = () => {
-    setSafeCopyArray(() => {
-      const filteredReceptions = filterValuesInRange(receptions, "date", dateRange.startDate, dateRange.endDate);
+    setBackupOfReceptions(() => {
+      const filteredReceptions = filterValuesInRange(
+        receptions, 
+        "date", 
+        dateRange.startDate, 
+        moment(dateRange.endDate).format('YYYY-MM-DDTHH:mm:10')
+      );
       return [...filteredReceptions];
     });
   };
@@ -210,7 +216,7 @@ const Main = () => {
     createReception({
       patient: newReception.name.value.trim(),
       doctor: newReception.doctor.value.trim(),
-      date: newReception.date.value.trim(),
+      date: newReception.date.value.split('T')[0],
       complaint: newReception.complaint.value.trim(),
     })
 
@@ -329,8 +335,8 @@ const Main = () => {
       {startFiltering && 
         <DateFilterForm 
           dateRange={dateRange}
-          cancelAction={() => cancelFilterReceptions()}
-          actionButton={() => filterDateReceptions()}
+          cancelAction={cancelFilterReceptions}
+          actionButton={filterDateReceptions}
           handleInputFilterDate={handleInputFilterDate}
         />
       }

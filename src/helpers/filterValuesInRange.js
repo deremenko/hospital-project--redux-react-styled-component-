@@ -1,10 +1,11 @@
 const filterValuesInRange= (array, nameField, starValue, endValue) => {
-  const FilteredArray= array.filter(item => (
+  console.log(array[4], endValue)
+  const filteredArray= array.filter(item => (
     (!starValue || item[nameField] >= starValue) &&
     (!endValue || item[nameField] <= endValue)
   ));
 
-  return FilteredArray;
+  return filteredArray;
 } 
 
 export { filterValuesInRange };
