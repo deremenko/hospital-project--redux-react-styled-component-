@@ -6,15 +6,18 @@ import CustomButton from "../../UI/CustomButton";
 import EditReceptionModal from "../../EditReceptionModal";
 import DeleteReceptionModal from '../../DeleteReceptionModal';
 import SortingForm from "../../SortingForm"
+import DateFilterForm from '../../DateFilterForm';
 import ErrorSnackbar from "../../ErrorSnackbar"
 import Receptions from "../../Receptions";
 import useActions from "../../../hook/useActions";
 import { sortArray } from "../../../helpers/sortArray";
+import { filterValuesInRange } from "../../../helpers/filterValuesInRange"
 import { 
   doctorList, 
   tableHeaderNames, 
   sortFieldName,
-  sortDirectionOptions 
+  sortDirectionOptions,
+  defaultTime 
 } from "../../../constants"
 import { 
   StyledMainZone, 
@@ -42,6 +45,13 @@ const Main = () => {
     direction: 'По возрастанию',
   });
 
+  const [startFiltering, setStartFiltering] = useState(false);
+  const [dateRange, setDateRange] = useState({
+    startDate: '',
+    endDate: '',
+  });
+  
+
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
@@ -51,7 +61,8 @@ const Main = () => {
   });
 
   const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
-
+  const [backupOfReceptions, setBackupOfReceptions] = useState([]);
+  
   const { 
     loadUserReceptions, 
     createReception, 
@@ -59,6 +70,12 @@ const Main = () => {
     editUserReception, 
     deleteUserReception 
   } = useActions();
+
+  useEffect(() => {
+    if (receptions) {
+      setBackupOfReceptions([...receptions]);
+    }
+  }, [receptions]);
 
   useEffect(() => {
     loadUserReceptions();
@@ -94,13 +111,41 @@ const Main = () => {
     });
   };
 
+  const handleInputFilterDate = (newValue, key) => {
+    setDateRange({
+      ...dateRange,
+      [key]: newValue
+    });
+  };
+
   const sortReceptions = () => {
     if (sortSettings.fieldName && sortSettings.direction) {
-      return sortArray(receptions, sortSettings.fieldName, sortSettings.direction)
+      return sortArray(backupOfReceptions, sortSettings.fieldName, sortSettings.direction)
     } 
-    return receptions   
-  }  
+    return backupOfReceptions   
+  };
 
+  const cancelFilterReceptions = () => {
+    setStartFiltering(false)
+    setDateRange({
+      startDate: '',
+      endDate: '',
+    })
+    setBackupOfReceptions(receptions)
+  };
+
+  const filterDateReceptions = () => {
+    const filteredReceptions = filterValuesInRange(
+      receptions, 
+      "date", 
+      dateRange.startDate, 
+      dateRange.endDate + defaultTime
+    );
+  
+    setBackupOfReceptions([...filteredReceptions]);
+  };
+  
+  
   const openEditModal = (id) => {
     const originalReception = receptions.find(item => item._id === id);
     
@@ -171,7 +216,7 @@ const Main = () => {
     createReception({
       patient: newReception.name.value.trim(),
       doctor: newReception.doctor.value.trim(),
-      date: newReception.date.value.trim(),
+      date: newReception.date.value.split('T')[0],
       complaint: newReception.complaint.value.trim(),
     })
 
@@ -284,7 +329,17 @@ const Main = () => {
         sortDirectionOptions={sortDirectionOptions}
         handleSortSelector={handleSortSelector}
         sortSettings={sortSettings}
+        startFiltering={startFiltering}
+        actionButton={() => setStartFiltering(true)}
       />
+      {startFiltering && 
+        <DateFilterForm 
+          dateRange={dateRange}
+          cancelAction={cancelFilterReceptions}
+          actionButton={filterDateReceptions}
+          handleInputFilterDate={handleInputFilterDate}
+        />
+      }
       <StyledMainZone>
         <Receptions
           tableHeaderNames={tableHeaderNames} 
