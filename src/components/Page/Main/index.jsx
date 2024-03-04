@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 import Header from "../../Header";
 import ReceptionForm from "../../ReceptionForm";
 import CustomButton from "../../UI/CustomButton";
@@ -60,16 +61,15 @@ const Main = () => {
     errorMessage: '',
   });
 
-  const receptionStateSelector = state => state.reception;
-  const memoizedReceptionSelector = createSelector(
-    receptionStateSelector,
+  const receptionSelector = createSelector(
+    state => state.reception,
     receptionState => ({
       error: receptionState.error,
       receptions: receptionState.receptions,
     })
   );
 
-  const { error: errorFromBackend, receptions } = useSelector(memoizedReceptionSelector);
+  const { error: errorFromBackend, receptions } = useSelector(receptionSelector);
   const [backupOfReceptions, setBackupOfReceptions] = useState([]);
   
   const { 

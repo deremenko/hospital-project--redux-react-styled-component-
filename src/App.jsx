@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from "react-router-dom";
 import WaitSpinner from "./components/WaitSpinner";
-import RegistrationPage from "./components/Page/Registration";
 import AuthorizationRoute from "./components/AuthorizationRoute";
-import Authorization from "./components/Page/Authorization"
 import PrivateRoute from "./components/PrivateRoute/index"
 
-const Main = React.lazy(() => import("./components/Page/Main"))
+const Main = lazy(() => import("./components/Page/Main"))
+const Authorization = lazy(() => import("./components/Page/Authorization"))
+const RegistrationPage = lazy(() => import("./components/Page/Registration"))
 
 const App = () => {
   return (

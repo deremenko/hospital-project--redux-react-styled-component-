@@ -24,14 +24,8 @@ const Authorization = () => {
     errorOpen: false,
     errorMessage: '',
   });
-  
-  const errorFromBackendSelector = state => state.user.error;
-  const memoizedErrorSelector = createSelector(
-    errorFromBackendSelector,
-    error => error
-  );
 
-  const errorFromBackend = useSelector(memoizedErrorSelector);
+  const errorFromBackend = useSelector((state) => state.user.error);
   const { authorization }  = useActions();
 
   useEffect(() => {
