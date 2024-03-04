@@ -60,7 +60,16 @@ const Main = () => {
     errorMessage: '',
   });
 
-  const { error: errorFromBackend, receptions } = useSelector((state) => state.reception);
+  const receptionStateSelector = state => state.reception;
+  const memoizedReceptionSelector = createSelector(
+    receptionStateSelector,
+    receptionState => ({
+      error: receptionState.error,
+      receptions: receptionState.receptions,
+    })
+  );
+
+  const { error: errorFromBackend, receptions } = useSelector(memoizedReceptionSelector);
   const [backupOfReceptions, setBackupOfReceptions] = useState([]);
   
   const { 

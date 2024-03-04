@@ -23,7 +23,14 @@ const Registration = () => {
   });
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const errorFromBackend = useSelector((state) => state.user.error);
+  
+  const errorFromBackendSelector = state => state.user.error;
+  const memoizedErrorSelector = createSelector(
+    errorFromBackendSelector,
+    error => error
+  );
+
+  const errorFromBackend = useSelector(memoizedErrorSelector);
   const { registration }  = useActions();
 
   useEffect(() => {
