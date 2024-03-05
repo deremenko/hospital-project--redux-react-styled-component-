@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 import Header from "../../Header";
 import Form from "../../Form";
 import CustomInput from "../../UI/CustomInput";
@@ -23,7 +24,8 @@ const Authorization = () => {
     errorOpen: false,
     errorMessage: '',
   });
-  const errorFromBackend = useSelector((state) => state.error);
+
+  const errorFromBackend = useSelector((state) => state.user.error);
   const { authorization }  = useActions();
 
   useEffect(() => {
